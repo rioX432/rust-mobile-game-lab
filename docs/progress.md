@@ -8,7 +8,8 @@ PoC未完了。リポジトリ作成と再開準備まで。実装・ビルド�
 - フォルダ: `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`
 - 初期ブランチ: `main`。既存内容なしを確認してclone。作者はrioX432に紐付くGitHub上の既存コミットから確認し、ローカル設定へ適用。
 - `.codex/config.toml`へ`workspace-write/on-request/auto_review`を保存済み。
-- **現在のセッションは未反映**。作業ルートは親のAnotherBall、実効approval reviewerは`user`。ファイル保存を実効設定確認として扱わない。
+- 最終確認の実効セッション記録は`on-request/auto_review`、workspace profile。自動レビュー選択は記録で確認した（初回のuserから変更されている）。GUI選択は未確認。
+- **専用ルートへの変更が未完了**。現セッションのcwdは親のAnotherBall。ファイル保存を専用ルートでの実効設定確認として扱わない。
 - CodexアプリのComputer Useは禁止されている。内部DBや信頼データの直接書き換えは行わない。ユーザー全体の設定は変更していない。
 
 ## 完了した準備
@@ -17,7 +18,7 @@ PoC未完了。リポジトリ作成と再開準備まで。実装・ビルド�
 - `README.md`、`AGENTS.md`、環境、計画、受入表、Issue本文を作成。
 - 親Issue: https://github.com/rioX432/rust-mobile-game-lab/issues/1
 - 子Issue: https://github.com/rioX432/rust-mobile-game-lab/issues/2 から https://github.com/rioX432/rust-mobile-game-lab/issues/13 。対応と実際の依存先は`docs/plan.md`。受入条件を満たしたIssueはまだない。
-- マージ済みPRなし。実装PRなし。準備のみの初期コミットをmainへ保存する。
+- マージ済みPRなし。実装PRなし。準備のみの初期コミット`a337f06`をmainへpushし、GitHub上で作者のrioX432への紐付けも確認した。
 - 環境診断は`docs/environment.md`。SDK/NDK/Xcodeは導入済み、利用する版の互換性確認・固定は次段階。
 - サンドボックス内のGitHub/Simulator/ADB接続失敗は正規の権限昇格で再確認。SDK不足とは区別した。
 
@@ -37,6 +38,6 @@ codex resume 01a16961-c487-7d63-b9d5-55c57af3e782 --cd /Users/rio/workspace/src/
 
 ## 未検証・未完了
 
-全12子Issueの受入条件、現在の実効Permissions、Rust描画/FFI/ゲーム/通信実装、各OSビルドと起動、実機、5分性能、生成SDKの消費側実行、重点レビュー3回と実装PR統合。Android実機は接続なし。iOS実機は今回の使用対象として未確認。
+全12子Issueの受入条件、専用ルートでの実効Permissions、Rust描画/FFI/ゲーム/通信実装、各OSビルドと起動、実機、5分性能、生成SDKの消費側実行、重点レビュー3回と実装PR統合。Android実機は接続なし。iOS実機は今回の使用対象として未確認。
 
 Permissions反映のため開き直しが必要な場合は進捗保存と再開操作を案内する、という仕様の指示に従い、この段階で新ルートでのセッション再開を待つ。これはPoC完了や目標の取り下げではない。

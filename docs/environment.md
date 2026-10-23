@@ -19,7 +19,8 @@
 
 - Codex CLI 0.164.0の`--help`と`resume --help`で`--cd`、`--approve-for-me`に対応することを確認。
 - プロジェクトの`.codex/config.toml`に`workspace-write`、`on-request`、`auto_review`を保存。
-- **現在のセッションへは未反映**。現在のルートは親フォルダAnotherBall、実効reviewerはuser。プロジェクト設定の保存を反映済みと扱わない。
+- 最終確認の実効セッション記録では`on-request/auto_review`とworkspace profileを確認した。初回確認時のreviewerはuserだったが、最終確認時にはauto_reviewへ変わっている。切替操作そのものはこのエージェントでは実施していない。
+- **専用作業ルートへの反映は未確認**。現セッションのcwdは親フォルダAnotherBallのまま。プロジェクト設定の保存を専用ルートでの実効確認として扱わない。
 - CodexアプリのComputer Useは安全制約で禁止されており、GUI選択の確認は未確認。ユーザー全体の設定、信頼データ、セッション内部DBは変更していない。
 - 正式なCLI再開後、作業ルート・`/permissions`と`/status`・新しい実効セッション記録を確認する。信頼確認が出た場合は正規の画面で確認する。Worktreeでも同じ確認が必要。
 - CLIの`--approve-for-me`はworkspace-writeを保った自動レビュー選択。Full accessやneverへ置換しない。

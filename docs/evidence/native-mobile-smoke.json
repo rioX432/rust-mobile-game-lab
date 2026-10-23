@@ -1,0 +1,742 @@
+{
+  "records": [
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 35,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 210,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 1,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 1,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 179,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 77,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 2,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 2,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 158,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 85,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 3,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 3,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 134,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 178,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 4,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 4,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 54,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 152,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 5,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 5,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 6,
+      "status": {
+        "phase": "Running",
+        "frames": 49,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 6,
+      "status": {
+        "phase": "Running",
+        "frames": 247,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 6,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 6,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 7,
+      "status": {
+        "phase": "Running",
+        "frames": 70,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 7,
+      "status": {
+        "phase": "Running",
+        "frames": 232,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 7,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 7,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 8,
+      "status": {
+        "phase": "Running",
+        "frames": 69,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 8,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 8,
+      "status": {
+        "phase": "Running",
+        "frames": 278,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 8,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 9,
+      "status": {
+        "phase": "Running",
+        "frames": 187,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 9,
+      "status": {
+        "phase": "Running",
+        "frames": 250,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 9,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 9,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "reopen",
+      "cycle": 10,
+      "status": {
+        "phase": "Running",
+        "frames": 64,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "reopen",
+      "cycle": 10,
+      "status": {
+        "phase": "Running",
+        "frames": 269,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 10,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 10,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 336,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 3,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 2,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 240,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 3,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 2,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 659,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 5,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 3,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 1045,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 7,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 4,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 755,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 5,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 3,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 1302,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 9,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 5,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 1265,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 7,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 4,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 1628,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 9,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 5,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 1880,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 2142,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "android",
+      "step": "input_after_resize_recreation",
+      "status": {
+        "phase": "Running",
+        "frames": 3309,
+        "touches": 1,
+        "selected_lane": 2,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    },
+    {
+      "device": "ios",
+      "step": "input_after_resize_recreation",
+      "status": {
+        "phase": "Running",
+        "frames": 3102,
+        "touches": 1,
+        "selected_lane": 2,
+        "surface_generation": 13,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null
+      }
+    }
+  ],
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "device": "ios",
+        "open_close_cycles": 10,
+        "background_cycles": 5,
+        "final": {
+          "phase": "Running",
+          "frames": 3102,
+          "touches": 1,
+          "selected_lane": 2,
+          "surface_generation": 13,
+          "live_instances": 1,
+          "live_workers": 1,
+          "retained_targets": 1,
+          "pauses": 6,
+          "last_pause_frame_delta": 0,
+          "last_error": null
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "device": "android",
+        "open_close_cycles": 10,
+        "background_cycles": 5,
+        "final": {
+          "phase": "Running",
+          "frames": 3309,
+          "touches": 1,
+          "selected_lane": 2,
+          "surface_generation": 11,
+          "live_instances": 1,
+          "live_workers": 1,
+          "retained_targets": 1,
+          "pauses": 6,
+          "last_pause_frame_delta": 0,
+          "last_error": null
+        }
+      }
+    }
+  ]
+}

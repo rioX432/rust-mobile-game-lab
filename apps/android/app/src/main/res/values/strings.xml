@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="header">Native header · Rust Surface probe</string>
+    <string name="footer">Native footer · Back closes the probe</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="reset">Reset</string>
+    <string name="resize">Resize</string>
+    <string name="closed">Closed</string>
+    <string name="closed_after_teardown">Closed · detach and destroy completed; see RustMobileHost log</string>
+    <string name="counters">Opens: %1$d / target 10 · Returns: %2$d / target 5</string>
+    <string name="probe_surface">Rust probe. Tap to select; accessibility click selects the center.</string>
+</resources>

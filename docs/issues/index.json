@@ -1,0 +1,69 @@
+{
+  "parent": {
+    "number": 1,
+    "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/1",
+    "title": "Rustモバイルゲーム基盤PoC：実装・検証・SDK・実機性能"
+  },
+  "children": {
+    "P01": {
+      "number": 2,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/2",
+      "title": "[P01] 開発環境・共通契約・CIの最小構成"
+    },
+    "P02": {
+      "number": 3,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/3",
+      "title": "[P02] Rustコアとミニレースの状態遷移"
+    },
+    "P03": {
+      "number": 4,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/4",
+      "title": "[P03] wgpu描画器とDesktop検証シェル"
+    },
+    "P04": {
+      "number": 5,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/5",
+      "title": "[P04] FFI・ランタイム・Surfaceの寿命管理"
+    },
+    "P05": {
+      "number": 6,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/6",
+      "title": "[P05] Androidへの部分埋め込み"
+    },
+    "P06": {
+      "number": 7,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/7",
+      "title": "[P06] iOSへの部分埋め込み"
+    },
+    "P07": {
+      "number": 8,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/8",
+      "title": "[P07] 通信プロトコルとルームサーバー"
+    },
+    "P08": {
+      "number": 9,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/9",
+      "title": "[P08] 共通通信クライアントと再接続"
+    },
+    "P09": {
+      "number": 10,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/10",
+      "title": "[P09] Android・iOSを含む参加型E2Eと復帰検証"
+    },
+    "P10": {
+      "number": 11,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/11",
+      "title": "[P10] 3択投票を追加して再利用性を検証"
+    },
+    "P11": {
+      "number": 12,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/12",
+      "title": "[P11] AAR／XCFrameworkと取り込みサンプル"
+    },
+    "P12": {
+      "number": 13,
+      "url": "https://github.com/rioX432/rust-mobile-game-lab/issues/13",
+      "title": "[P12] 性能測定・最終検証・導入判断"
+    }
+  }
+}

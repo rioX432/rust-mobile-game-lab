@@ -1,0 +1,8 @@
+/target/
+/artifacts/
+/.worktrees/
+**/local.properties
+**/.gradle/
+**/build/
+**/DerivedData/
+.DS_Store

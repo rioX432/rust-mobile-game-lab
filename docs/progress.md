@@ -24,7 +24,7 @@ PoC未完了。同じRust描画器のAndroid/iOS部分埋め込みをEmulator/Si
 - Android https://github.com/rioX432/rust-mobile-game-lab/issues/6
 - iOS https://github.com/rioX432/rust-mobile-game-lab/issues/7
 
-全対応はdocs/plan.md。現時点で完了Issue・実装PR・マージ済みPRなし。最初のnative PRをこれから作成する。未検証条件のあるIssueには自動closeキーワードを使わない。
+全対応はdocs/plan.md。実装PR: https://github.com/rioX432/rust-mobile-game-lab/pull/14 （open）。完了Issue・マージ済みPRはまだなし。CIのRust/iOSは成功し、AndroidのsdkmanagerがPATH外で終了127になったため公式配置のパスを明示する修正を追加した。ランナー既定NDKも28.2へ明示する。検証対象は減らさず再確認中。未検証条件のあるIssueには自動closeキーワードを使わない。
 
 ## レビュー
 
@@ -36,7 +36,7 @@ PoC未完了。同じRust描画器のAndroid/iOS部分埋め込みをEmulator/Si
 
 レースは`.worktrees/race` / `feat/race-core` / `fbbbba8`。契約docs/race-contract.mdに沿い、core限定16テストとoffline_race例が成功したとの報告を受領。seed42、順位[0,2,1]、人数[2,0,1]、勝者[10,30]。親によるコード/証拠確認と統合はこれから。共有manifest/lockfile/FFI/ネイティブは統合担当が所有する。
 
-1. native PRを作成し、Rust/Android/iOSのCIを確認してmerge commitでmainへ統合する。
+1. native PR #14のRust/Android/iOSのCIを確認し、必要チェック成功後にmerge commitでmainへ統合する。
 2. レースの確定APIと証拠を読み、別の統合ブランチでオフラインゲームを実ホストへ接続する。
 3. 通信契約を確定し、サーバー/共通クライアントを独立Worktreeで分担する。
 4. 実通信と途中参加/再接続 → 投票 → SDK消費側 → 実機/性能を進める。
@@ -53,3 +53,5 @@ scripts/ios-build.sh simulator
 ## 未確認・ブロッカー
 
 実機、5分性能/メモリ推移、実GPU/OSハング、実Surface/Device Lost故障注入、モバイル初期化中高速Close、ゲーム/通信/投票、SDK生成物の消費側。Android実機は未接続。iOS実機の今回の対象は未確認で、対象端末の指定を非同期で質問済み。実機の返答を待つ間も独立作業を進める。親Issueを閉じずPoC完了としない。
+
+初回CI: https://github.com/rioX432/rust-mobile-game-lab/actions/runs/39993616105 （Rust/iOS成功、Android SDKコマンド解決で失敗）。CIのiOSもSDK26.5 / arm64-apple-ios16.0-simulatorでビルド成功。独立レビューはPRへCOMMENTとして記録済み。

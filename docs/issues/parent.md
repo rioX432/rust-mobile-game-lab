@@ -4,7 +4,7 @@ Rust共通の2Dゲーム・描画・通信基盤をAndroid/iOSのネイティブ
 
 最初に図形・タッチ・Surface再生成を両OSへ縦につなぎ、その後レース→通信→投票/SDK→実機測定へ進む。
 
-必須条件が未検証の間はこの親Issueを閉じない。現在は実装/両OSビルド/起動/実機/性能とも未確認。Permissions設定ファイルは保存済み。最終の実効記録で自動レビューを確認したが、専用フォルダへのセッション作業ルート変更は未完了。
+必須条件が未検証の間はこの親Issueを閉じない。専用作業ルートと実効Approve for meを確認し、共通Rust描画器のAndroid/iOSネイティブUI内でのビルド・Emulator/Simulator起動・入力・開閉10回・背景復帰5回・再生成を確認した。独立レビューのMetal取得待ちP1を修正し、限定再レビューと両OS再検証が成功。実機・性能、ゲーム/通信/投票/SDK消費側は未確認。
 
 ## 依存する子Issue
 
@@ -21,13 +21,15 @@ Rust共通の2Dゲーム・描画・通信基盤をAndroid/iOSのネイティブ
 - [ ] #12 AAR／XCFrameworkと取り込みサンプル（依存: #6、#7、#9）
 - [ ] #13 性能測定・最終検証・導入判断（依存: #10、#11、#12）
 
-## 未検証の必須条件
+## 必須条件と未確認事項
 
-- [ ] 専用作業ルートとApprove for meの現セッションへの反映
-- [ ] 両OSの部分描画/入力と開閉10回/復帰5回/再生成
+- [x] 専用作業ルートとApprove for meの現セッションへの反映
+- [x] 両OSの部分描画/入力と開閉10回/復帰5回/再生成（Emulator/Simulator。実機成功とは扱わない）
 - [ ] 2クライアント実通信、途中参加、再接続、約20合成参加者
 - [ ] 両ゲームを両OS実機で動作確認
 - [ ] AAR/XCFramework消費側のビルド・起動
 - [ ] Release相当の両OS実機性能とサイズ差分
 
 Android実機接続なし。iOS実機は今回の使用対象として未確認。Emulator/SimulatorやDesktopの成功で実機条件を置換しない。
+
+詳細と実画像: docs/native-verification.md、docs/evidence/native-mobile-smoke.json、docs/reviews/native-boundary.md。実Surface/Device Lostの故障注入、モバイル初期化中の高速Closeは未確認。Rustコアのレースは別Worktreeで実装・テスト済み、統合と実ホスト接続へ進む。全Issueは受入条件が揃ってから閉じる。

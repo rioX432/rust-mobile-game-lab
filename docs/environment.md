@@ -34,3 +34,7 @@
 プロジェクト設定は信頼されたプロジェクトのみで読み込まれ、CLI指定が優先する。設定と現セッションでの実効確認は別工程。
 
 ビルド固定版はRust 1.99.0。Homebrewのrustc 1.96が先に解決されるためscripts/cargo.shがrustupの1.99.0 binをPATH先頭にする。最小コアテスト3件とハンドルレジストリテスト3件を実行済み。
+
+## 専用の検証環境
+
+Android AVD RustMobileGameLab_API35_20261024（emulator-5630、API35 arm64、Pixel5定義）を作成し、既定data領域の容量不足を-partition-size 2048で解消した。iPhone17 / iOS26.5の専用Simulator 06E9B566-FCC7-4A9B-9A0D-046B9A28D126も作成。既存端末は変更しない。修正後の両OSアプリが起動し、開閉10回/復帰5回/入力を確認。AndroidはDebug APKにRust release、iOSはDebug app/Rust debugなので実機Release性能の証拠にはしない。

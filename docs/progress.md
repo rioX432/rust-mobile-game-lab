@@ -1,55 +1,55 @@
 # 現在地（2026-10-24 JST）
 
-PoC未完了。最初の図形・入力・Surface寿命を実装中。ゲーム/通信は未接続。
+PoC未完了。同じRust描画器のAndroid/iOS部分埋め込みをEmulator/Simulatorで確認済み。ゲーム・通信・投票・SDK消費・実機・性能は未完了。
 
-## 確認済み
+## 作業状態
 
 - リポジトリ: https://github.com/rioX432/rust-mobile-game-lab （Public、rio承認済み）
 - 作業ルート: `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`
-- 再開後の実効セッション記録とdeveloper指示で`workspace-write/on-request/auto_review`、専用ルートを確認。GUI表示は未確認（操作禁止）。
-- 作者はrioX432に紐付くローカル設定。初期記録はmainへpush済み。
-- 現ブランチ: `feat/native-embedding`。共有契約コミット`5fef344`。
-- コアの座標/密度/復帰時間テスト3件、レジストリの無効ID/世代/上限テスト3件が成功。
-- Rust 1.99.0 / wgpu 30.0.1 / winit 0.30.13、Cargo.lockを作成。詳細はdocs/contracts.mdとdocs/adr/0001-native-embedding.md。
+- 実効セッション記録とdeveloper指示で専用cwd、`workspace-write/on-request/auto_review`を確認済み。CLIで確認。GUI表示は未確認（操作禁止）。全ワーカーも専用Worktreeで実効記録を保存。
+- 作者はrioX432に紐付く設定。現在のブランチは`feat/native-embedding`。
+- 図形/FFI/両OSホストを並列実装して統合。共有契約基点`5fef344`、runtime統合`841b9ff`、重大レビュー指摘の修正`5f34102`。
+- 修正後の両OSビルド、開閉10回・背景復帰5回・再生成後入力が成功。Rustの所有インスタンス/ワーカー/NativeTarget参照は各1、停止中の提出増分0、last_error=null。
+- Rust core3/renderer4/runtime8テスト、strict Clippy/format、Androidホスト3テスト/lintを確認。詳細と画像はdocs/native-verification.md。
+- コメント整理はrepo固有スキルがないため中央clean-slopを適用。安全契約・API制約のコメントは保持し、冗長コメントの削除対象なし。
 
 ## Issue・PR
 
-- 親Issue: https://github.com/rioX432/rust-mobile-game-lab/issues/1
-- 開発環境/契約: https://github.com/rioX432/rust-mobile-game-lab/issues/2
-- 描画/Desktop: https://github.com/rioX432/rust-mobile-game-lab/issues/4
-- FFI/寿命: https://github.com/rioX432/rust-mobile-game-lab/issues/5
-- Android: https://github.com/rioX432/rust-mobile-game-lab/issues/6
-- iOS: https://github.com/rioX432/rust-mobile-game-lab/issues/7
-- 全対応はdocs/plan.md。完了Issueなし、実装PR/マージ済みPRなし。
+親: https://github.com/rioX432/rust-mobile-game-lab/issues/1
 
-## 並列作業
+- 環境/契約 https://github.com/rioX432/rust-mobile-game-lab/issues/2 （CI待ち）
+- レース https://github.com/rioX432/rust-mobile-game-lab/issues/3 （独立ワーカーが実装・テスト済み、統合前）
+- 描画/Desktop https://github.com/rioX432/rust-mobile-game-lab/issues/4
+- FFI/寿命 https://github.com/rioX432/rust-mobile-game-lab/issues/5
+- Android https://github.com/rioX432/rust-mobile-game-lab/issues/6
+- iOS https://github.com/rioX432/rust-mobile-game-lab/issues/7
 
-基点は共有契約コミット。各ワーカーは`codex exec --cd <worktree> --approve-for-me`で開始し、それぞれ実効セッション記録を`artifacts/worker-permissions.txt`へ保存した。
+全対応はdocs/plan.md。現時点で完了Issue・実装PR・マージ済みPRなし。最初のnative PRをこれから作成する。未検証条件のあるIssueには自動closeキーワードを使わない。
 
-| 担当 | Worktree / branch | 編集範囲 |
-|---|---|---|
-| Android | `.worktrees/android` / `feat/android-native` | apps/android、scripts/android*.sh、docs/android.md |
-| iOS | `.worktrees/ios` / `feat/ios-native` | apps/ios、scripts/ios*.sh、docs/ios.md |
-| 描画/Desktop | `.worktrees/renderer` / `feat/shared-renderer` | crates/renderer、apps/desktop、docs/renderer.md |
+## レビュー
 
-統合担当はcore/runtime/共有契約/Cargo.lock/CIを所有する。workerはローカルcommitのみ、統合担当が検証・PR・マージを管理する。同一ディレクトリを共同編集しない。
+最初の独立レビューでMetalの取得待ちがUI停止用gateを保持するP1を確認。取得/準備とsubmit/presentを分離し、遅延フレームの再検査・gate外破棄・Metal timeoutを実装。故障注入テストと限定再レビューで残存P1なし。修正後の両OS実行も再確認。docs/reviews/native-boundary.mdに記録。
 
-## 次の作業
+## 並列作業と次の段階
 
-1. ランタイムとJNI/C ABIを完成させ、描画ワーカーのコードを統合して境界テスト。
-2. Android/iOSホストを統合し、両OSの専用Emulator/Simulatorで図形・タッチ・開閉・復帰・再生成を実行。
-3. FFIと両OSの重点レビュー、修正と再検証、実装PRを作成してCI通過後にmerge commitで統合。
-4. その後、オフラインレース→通信→投票→SDK消費側→実機/性能へ進む。
+完了したWorktreeは`.worktrees/android`（5ad8565）、`.worktrees/ios`（db9d928）、`.worktrees/renderer`（8ab2449）、`.worktrees/review-native`（a4719c4）。ソースと証拠は保持し、完了3実装ワーカーの再生成可能targetだけを容量確保のため削除した。
+
+レースは`.worktrees/race` / `feat/race-core` / `fbbbba8`。契約docs/race-contract.mdに沿い、core限定16テストとoffline_race例が成功したとの報告を受領。seed42、順位[0,2,1]、人数[2,0,1]、勝者[10,30]。親によるコード/証拠確認と統合はこれから。共有manifest/lockfile/FFI/ネイティブは統合担当が所有する。
+
+1. native PRを作成し、Rust/Android/iOSのCIを確認してmerge commitでmainへ統合する。
+2. レースの確定APIと証拠を読み、別の統合ブランチでオフラインゲームを実ホストへ接続する。
+3. 通信契約を確定し、サーバー/共通クライアントを独立Worktreeで分担する。
+4. 実通信と途中参加/再接続 → 投票 → SDK消費側 → 実機/性能を進める。
 
 ```sh
 scripts/cargo.sh test --workspace --locked
 scripts/cargo.sh clippy --workspace --all-targets --locked -- -D warnings
 scripts/android-build.sh
-scripts/ios-build.sh
+scripts/ios-build.sh simulator
 ```
 
-後2つのスクリプトはワーカー作業中。未実施のチェックを成功と扱わない。
+専用端末: Android AVD `RustMobileGameLab_API35_20261024` / emulator-5630（2GB data）、iOS Simulator `06E9B566-FCC7-4A9B-9A0D-046B9A28D126`。両方稼働中でPoCアプリ導入済み。既存の他端末を変更しない。根拠はartifacts/native-mobile-smoke-after-acquisition-fix.jsonとコミット対象docs/evidence。full logsはartifactsのios-runtime.stderr.log、android-runtime.log、各build/test log。
 
-## 未確認・未完了
+## 未確認・ブロッカー
 
-現在の変更全体のビルド、両OS/ Desktopでの起動と入力、Surface寿命の実行検証、実機、ゲーム/通信、投票、SDK、性能測定、3回の重点レビュー、実装PR統合。Android実機は接続なし。iOS実機は今回の使用対象として未確認。必須条件が残る間、親Issueを閉じずPoC完了としない。
+実機、5分性能/メモリ推移、実GPU/OSハング、実Surface/Device Lost故障注入、モバイル初期化中高速Close、ゲーム/通信/投票、SDK生成物の消費側。Android実機は未接続。iOS実機の今回の対象は未確認で、対象端末の指定を非同期で質問済み。実機の返答を待つ間も独立作業を進める。親Issueを閉じずPoC完了としない。

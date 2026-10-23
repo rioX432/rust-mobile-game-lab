@@ -161,8 +161,8 @@ fn enqueue(control: &Control, command: Command) -> Result<(), i32> {
 }
 
 fn invalidate(control: &Control, destroyed: bool) {
-    // GPU initialization never holds this gate. Only an already-running render
-    // submission may finish before invalidation returns to the native caller.
+    // Initialization and drawable acquisition never hold this gate. An existing
+    // submit/present transaction completes before invalidation returns.
     let mut gate = lock(&control.gate);
     gate.generation += 1;
     gate.active = false;
@@ -174,6 +174,34 @@ fn invalidate(control: &Control, destroyed: bool) {
     } else {
         Phase::Detached
     };
+}
+
+fn frame_transaction<R, F>(
+    control: &Control,
+    generation: u64,
+    renderer: &mut R,
+    acquire: impl FnOnce(&mut R) -> Result<Option<F>, String>,
+    submit: impl FnOnce(&mut R, F) -> u64,
+) -> Result<bool, String> {
+    {
+        let gate = lock(&control.gate);
+        if !gate.active || gate.paused || gate.destroyed || gate.generation != generation {
+            return Ok(false);
+        }
+    }
+    let Some(frame) = acquire(renderer)? else {
+        return Ok(false);
+    };
+    let gate = lock(&control.gate);
+    if gate.active && !gate.paused && !gate.destroyed && gate.generation == generation {
+        let count = submit(renderer, frame);
+        lock(&control.status).frames += count;
+        Ok(true)
+    } else {
+        drop(gate);
+        drop(frame);
+        Ok(false)
+    }
 }
 
 #[cfg(any(target_vendor = "apple", target_os = "android"))]
@@ -559,25 +587,31 @@ fn worker(control: &Control, receiver: Receiver<Command>) {
             }
         }
         let mut render_failed = false;
-        let mut gate = lock(&control.gate);
-        if gate.destroyed {
+        if lock(&control.gate).destroyed {
             break;
         }
-        let mut status = lock(&control.status);
-        status.touches = probe.touches;
-        status.selected_lane = probe.selected_lane;
-        drop(status);
-        if gate.active
-            && !gate.paused
-            && let Some(s) = session
-                .as_mut()
-                .filter(|s| s.generation == gate.generation && s.width > 0 && s.height > 0)
         {
-            let before = s.renderer.presented_frames();
-            match s.renderer.render(&probe.scene(s.width, s.height, s.scale)) {
-                Ok(()) => lock(&control.status).frames += s.renderer.presented_frames() - before,
-                Err(error) => {
-                    render_failed = true;
+            let mut status = lock(&control.status);
+            status.touches = probe.touches;
+            status.selected_lane = probe.selected_lane;
+        }
+        if let Some(s) = session.as_mut().filter(|s| s.width > 0 && s.height > 0) {
+            let scene = probe.scene(s.width, s.height, s.scale);
+            let result = frame_transaction(
+                control,
+                s.generation,
+                &mut s.renderer,
+                |renderer| renderer.prepare_frame(&scene),
+                |renderer, frame| {
+                    let before = renderer.presented_frames();
+                    renderer.submit_frame(frame);
+                    renderer.presented_frames() - before
+                },
+            );
+            if let Err(error) = result {
+                render_failed = true;
+                let mut gate = lock(&control.gate);
+                if gate.generation == s.generation && !gate.destroyed {
                     let mut status = lock(&control.status);
                     status.last_error = Some(error.clone());
                     gate.active = false;
@@ -597,7 +631,6 @@ fn worker(control: &Control, receiver: Receiver<Command>) {
                 }
             }
         }
-        drop(gate);
         if render_failed {
             release_session(&mut session);
         }
@@ -657,6 +690,79 @@ mod tests {
         lock(&control.gate).active = true;
         invalidate(&control, false);
         assert!(!lock(&control.gate).active);
+    }
+
+    #[test]
+    fn lifecycle_calls_finish_while_acquisition_waits_and_discard_the_late_frame() {
+        struct Frame {
+            control: Arc<Control>,
+            discarded: Arc<AtomicUsize>,
+        }
+        impl Drop for Frame {
+            fn drop(&mut self) {
+                assert!(self.control.gate.try_lock().is_ok());
+                self.discarded.fetch_add(1, Ordering::AcqRel);
+            }
+        }
+        for operation in 0..3 {
+            let (sender, _receiver) = mpsc::sync_channel(1);
+            let control = Arc::new(Control {
+                gate: Mutex::new(Gate {
+                    active: true,
+                    generation: 1,
+                    ..Default::default()
+                }),
+                status: Mutex::default(),
+                sender,
+            });
+            let handle = lock(registry()).insert(control.clone()).unwrap();
+            let (entered_tx, entered_rx) = mpsc::sync_channel(1);
+            let (release_tx, release_rx) = mpsc::sync_channel(1);
+            let submitted = Arc::new(AtomicUsize::new(0));
+            let discarded = Arc::new(AtomicUsize::new(0));
+            let worker_control = control.clone();
+            let worker_submitted = submitted.clone();
+            let worker_discarded = discarded.clone();
+            let worker = thread::spawn(move || {
+                frame_transaction(
+                    &worker_control,
+                    1,
+                    &mut (),
+                    |_| {
+                        entered_tx.send(()).unwrap();
+                        release_rx.recv().unwrap();
+                        Ok(Some(Frame {
+                            control: worker_control.clone(),
+                            discarded: worker_discarded,
+                        }))
+                    },
+                    |_, _frame| {
+                        worker_submitted.fetch_add(1, Ordering::AcqRel);
+                        1
+                    },
+                )
+            });
+            entered_rx.recv_timeout(Duration::from_secs(2)).unwrap();
+            let (finished_tx, finished_rx) = mpsc::sync_channel(1);
+            let operation_thread = thread::spawn(move || {
+                let result = match operation {
+                    0 => mg_pause(handle, 1),
+                    1 => mg_detach(handle),
+                    _ => mg_destroy(handle),
+                };
+                finished_tx.send(result).unwrap();
+            });
+            assert_eq!(finished_rx.recv_timeout(Duration::from_secs(2)).unwrap(), 0);
+            release_tx.send(()).unwrap();
+            assert!(!worker.join().unwrap().unwrap());
+            operation_thread.join().unwrap();
+            assert_eq!(submitted.load(Ordering::Acquire), 0);
+            assert_eq!(discarded.load(Ordering::Acquire), 1);
+            assert_eq!(lock(&control.status).frames, 0);
+            if operation != 2 {
+                assert_eq!(mg_destroy(handle), 0);
+            }
+        }
     }
 
     #[test]

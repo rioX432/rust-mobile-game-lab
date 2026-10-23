@@ -16,6 +16,11 @@ struct Vertex {
     color: [f32; 4],
 }
 
+pub struct PreparedFrame {
+    commands: wgpu::CommandBuffer,
+    texture: wgpu::SurfaceTexture,
+}
+
 pub struct Renderer {
     surface: wgpu::Surface<'static>,
     device: wgpu::Device,
@@ -138,13 +143,34 @@ impl Renderer {
         self.config.width = self.size[0];
         self.config.height = self.size[1];
         self.surface.configure(&self.device, &self.config);
+        #[cfg(target_vendor = "apple")]
+        {
+            // SAFETY: The guard keeps the Metal surface alive. Only its locked
+            // layer's acquisition timeout is changed; no GPU resource is freed.
+            if let Some(surface) = unsafe { self.surface.as_hal::<wgpu::hal::api::Metal>() } {
+                let layer = surface.render_layer().lock();
+                // wgpu disables this on configure. Bound acquisition so a
+                // cancelled worker can release its retained layer after a stall.
+                layer.setAllowsNextDrawableTimeout(true);
+                if !layer.allowsNextDrawableTimeout() {
+                    return Err("Metal drawable acquisition timeout is not enabled".into());
+                }
+            }
+        }
         self.needs_configure = false;
         Ok(())
     }
 
     pub fn render(&mut self, scene: &Scene) -> Result<(), String> {
+        if let Some(frame) = self.prepare_frame(scene)? {
+            self.submit_frame(frame);
+        }
+        Ok(())
+    }
+
+    pub fn prepare_frame(&mut self, scene: &Scene) -> Result<Option<PreparedFrame>, String> {
         if self.size.contains(&0) {
-            return Ok(());
+            return Ok(None);
         }
         if self.device_lost.load(Ordering::Acquire) {
             return Err(SURFACE_LOST.into());
@@ -173,10 +199,10 @@ impl Renderer {
             }
             wgpu::CurrentSurfaceTexture::Outdated => {
                 self.needs_configure = true;
-                return Ok(());
+                return Ok(None);
             }
             wgpu::CurrentSurfaceTexture::Timeout | wgpu::CurrentSurfaceTexture::Occluded => {
-                return Ok(());
+                return Ok(None);
             }
             wgpu::CurrentSurfaceTexture::Lost => return Err(SURFACE_LOST.into()),
             wgpu::CurrentSurfaceTexture::Validation => {
@@ -226,10 +252,16 @@ impl Renderer {
                 pass.draw(0..count, 0..1);
             }
         }
-        self.queue.submit([encoder.finish()]);
-        self.queue.present(frame);
+        Ok(Some(PreparedFrame {
+            commands: encoder.finish(),
+            texture: frame,
+        }))
+    }
+
+    pub fn submit_frame(&mut self, frame: PreparedFrame) {
+        self.queue.submit([frame.commands]);
+        self.queue.present(frame.texture);
         self.presented_frames += 1;
-        Ok(())
     }
 }
 

@@ -8,6 +8,8 @@
 
 `game-renderer::Renderer::new(instance: &wgpu::Instance, surface: wgpu::Surface<'static>, width: u32, height: u32)`はasyncで`Result<Renderer,String>`を返す。`resize(width,height)`と`render(&Scene) -> Result<(),String>`を提供する。ゼロサイズは描画せず、失効Surfaceは再構成する。ゲームの勝敗は変更しない。
 
+ネイティブランタイムは`prepare_frame(&Scene)`で描画先取得とコマンド準備をgate外で行い、取得後に世代・paused・destroyedを再検査して`submit_frame`だけをgate内で実行する。失効した取得結果はgate外で破棄する。Metalではwgpuがconfigure時に無期限取得へ変更するため、固定版の公開HAL Surfaceからlayerの取得timeoutを毎回有効化し、getterで確認する。
+
 ## ネイティブ境界
 
 C ABIの正本は`include/game_runtime.h`。ライブラリ名は`game_runtime`。iOSはCAMetalLayerを渡す。Androidは`lab.rustmobile.NativeBridge`の`@JvmStatic external`メソッドをJNIで提供する:

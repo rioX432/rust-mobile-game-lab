@@ -6,6 +6,8 @@ AndroidはSurfaceView/JNIとNDKのANativeWindow、iOSはUIView/CAMetalLayer/C AB
 
 AndroidはAGP 8.9.2 / Gradle 8.11.1 / JDK 17 / compileSdk 35 / minSdk 26 / NDK 28.2.13676358を基準とする。NDKは端末ページサイズへの対応を含め公式資料とビルド実行で検証する。iOSはdeployment target 16、arm64実機・arm64 Simulatorを初期対象とする。Intel Simulatorは未対応として明記し、使用可能なら別途追加する。
 
+wgpu 30.0.1のMetal configureは`allowsNextDrawableTimeout=false`を設定する。停止処理を取得待ちから分離し、Surfaceの公開HAL guardを使ってconfigure後にtimeoutを有効化する。これは固定版バックエンドの制約への対応であり、wgpu更新時には再確認する。実機上のGPU/OSハング全般からの回復を保証するものではない。
+
 参考（2026-10-24確認）:
 - https://docs.rs/wgpu/30.0.1/wgpu/
 - https://docs.rs/wgpu/30.0.1/x86_64-apple-darwin/wgpu/enum.SurfaceTargetUnsafe.html

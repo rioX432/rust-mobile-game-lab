@@ -1,0 +1,13 @@
+[package]
+name = "game-desktop"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+game-core.workspace = true
+game-renderer.workspace = true
+wgpu.workspace = true
+winit.workspace = true
+pollster.workspace = true

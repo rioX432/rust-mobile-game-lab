@@ -1,0 +1,21 @@
+[package]
+name = "game-runtime"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[lib]
+name = "game_runtime"
+crate-type = ["rlib", "staticlib", "cdylib"]
+
+[dependencies]
+game-core.workspace = true
+game-renderer.workspace = true
+wgpu.workspace = true
+pollster.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(target_os = "android")'.dependencies]
+jni.workspace = true

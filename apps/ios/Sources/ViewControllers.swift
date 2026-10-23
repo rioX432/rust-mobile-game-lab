@@ -56,9 +56,9 @@ final class GameViewController: UIViewController {
         }
 
         let heading = UILabel()
-        heading.text = "Native UI above Rust: tap the drawing area"
+        heading.text = "Offline host 1 / viewer 2: tap Rust or Choose"
         heading.numberOfLines = 0
-        heading.font = .preferredFont(forTextStyle: .headline)
+        heading.font = .preferredFont(forTextStyle: .subheadline)
         statusView.isEditable = false
         statusView.font = .monospacedSystemFont(ofSize: 12, weight: .regular)
         statusView.backgroundColor = .secondarySystemBackground
@@ -71,12 +71,28 @@ final class GameViewController: UIViewController {
         let controls = UIStackView(arrangedSubviews: [reset, resize, recreate, close])
         controls.distribution = .fillEqually
         controls.spacing = 8
-        let stack = UIStackView(arrangedSubviews: [heading, surfaceContainer, controls, statusView])
+        let gameControls = UIStackView(arrangedSubviews: [
+            button("Probe", action: #selector(selectProbe)),
+            button("Race", action: #selector(selectRace)),
+            button("Start / next", action: #selector(startRound)),
+            button("Close round", action: #selector(closeRound)),
+        ])
+        gameControls.distribution = .fillEqually
+        gameControls.spacing = 4
+        let choices = UIStackView(arrangedSubviews: (0..<3).map { option in
+            let choice = button("Choose \(option + 1)", action: #selector(choose(_:)))
+            choice.tag = option
+            return choice
+        })
+        choices.distribution = .fillEqually
+        choices.spacing = 8
+        let stack = UIStackView(arrangedSubviews: [heading, gameControls, choices,
+                                                  surfaceContainer, controls, statusView])
         stack.axis = .vertical
         stack.spacing = 8
         stack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(stack)
-        let sizeConstraint = surfaceContainer.heightAnchor.constraint(equalTo: stack.heightAnchor, multiplier: 0.45)
+        let sizeConstraint = surfaceContainer.heightAnchor.constraint(equalTo: stack.heightAnchor, multiplier: 0.35)
         self.sizeConstraint = sizeConstraint
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
@@ -158,10 +174,15 @@ final class GameViewController: UIViewController {
     }
 
     @objc private func resetProbe() { session?.reset() }
+    @objc private func selectProbe() { session?.selectMode(race: false) }
+    @objc private func selectRace() { session?.selectMode(race: true) }
+    @objc private func startRound() { session?.startRound() }
+    @objc private func closeRound() { session?.closeRound() }
+    @objc private func choose(_ sender: UIButton) { session?.nativeChoose(UInt32(sender.tag)) }
 
     @objc private func resizeSurface() {
         guard let sizeConstraint, let stack = surfaceContainer.superview else { return }
-        let multiplier: CGFloat = sizeConstraint.multiplier > 0.4 ? 0.3 : 0.45
+        let multiplier: CGFloat = sizeConstraint.multiplier > 0.3 ? 0.25 : 0.35
         sizeConstraint.isActive = false
         let replacement = surfaceContainer.heightAnchor.constraint(equalTo: stack.heightAnchor, multiplier: multiplier)
         replacement.isActive = true

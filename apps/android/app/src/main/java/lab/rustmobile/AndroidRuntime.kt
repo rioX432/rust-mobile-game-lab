@@ -13,5 +13,6 @@ internal object AndroidRuntime : ProbeRuntime<Surface> {
     override fun destroy(handle: Long) = NativeBridge.destroy(handle)
     override fun touch(handle: Long, x: Float, y: Float) = NativeBridge.touch(handle, x, y)
     override fun reset(handle: Long) = NativeBridge.action(handle, 0, 0)
+    override fun action(handle: Long, action: Int, argument: Int) = NativeBridge.action(handle, action, argument)
     override fun status(handle: Long) = NativeBridge.status(handle)
 }

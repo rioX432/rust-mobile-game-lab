@@ -1,11 +1,13 @@
 #[cfg(target_os = "android")]
 mod android;
 mod native;
+mod offline;
 mod registry;
 
-use game_core::{Phase, Probe};
+use game_core::{Phase, game::Snapshot};
 use game_renderer::{Renderer, SURFACE_LOST};
 use native::{AutoreleasePool, NativeTarget};
+use offline::{Action, Offline};
 use registry::Registry;
 use serde::Serialize;
 use std::{
@@ -17,7 +19,7 @@ use std::{
         mpsc::{self, Receiver, SyncSender},
     },
     thread,
-    time::Duration,
+    time::{Duration, Instant},
 };
 
 const INVALID_HANDLE: i32 = -1;
@@ -40,6 +42,8 @@ struct Status {
     pauses: u64,
     last_pause_frame_delta: Option<u64>,
     last_error: Option<String>,
+    game: Option<Snapshot>,
+    last_action_error: Option<String>,
 }
 
 impl Default for Status {
@@ -56,6 +60,8 @@ impl Default for Status {
             pauses: 0,
             last_pause_frame_delta: None,
             last_error: None,
+            game: None,
+            last_action_error: None,
         }
     }
 }
@@ -67,6 +73,7 @@ struct Gate {
     paused: bool,
     destroyed: bool,
     pause_frames: Option<u64>,
+    input_epoch: u64,
 }
 
 struct Control {
@@ -91,14 +98,40 @@ enum Command {
         scale: f32,
     },
     Touch {
-        generation: u64,
+        stamp: InputStamp,
         x: f32,
         y: f32,
     },
-    Reset {
-        generation: u64,
+    Action {
+        stamp: InputStamp,
+        action: Action,
     },
     Wake,
+}
+
+#[derive(Clone, Copy)]
+struct InputStamp {
+    generation: u64,
+    epoch: u64,
+    round_id: Option<u64>,
+}
+
+impl InputStamp {
+    fn capture(gate: &Gate, status: &Status) -> Self {
+        Self {
+            generation: gate.generation,
+            epoch: gate.input_epoch,
+            round_id: status.game.as_ref().map(|game| game.round_id),
+        }
+    }
+
+    fn valid(self, gate: &Gate) -> bool {
+        gate.active
+            && !gate.paused
+            && !gate.destroyed
+            && self.generation == gate.generation
+            && self.epoch == gate.input_epoch
+    }
 }
 
 struct Session {
@@ -254,7 +287,7 @@ fn status_json(handle: u64) -> Result<String, i32> {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn mg_create(_seed: u64) -> u64 {
+pub extern "C" fn mg_create(seed: u64) -> u64 {
     catch_unwind(AssertUnwindSafe(|| {
         let (sender, receiver) = mpsc::sync_channel(64);
         let control = Arc::new(Control {
@@ -279,7 +312,8 @@ pub extern "C" fn mg_create(_seed: u64) -> u64 {
             .name(format!("rust-game-{handle}"))
             .spawn(move || {
                 let _count = WorkerCount;
-                let result = catch_unwind(AssertUnwindSafe(|| worker(&worker_control, receiver)));
+                let result =
+                    catch_unwind(AssertUnwindSafe(|| worker(&worker_control, receiver, seed)));
                 if result.is_err() {
                     let mut gate = lock(&worker_control.gate);
                     gate.active = false;
@@ -374,6 +408,9 @@ pub extern "C" fn mg_pause(handle: u64, paused: u32) -> i32 {
             status.last_pause_frame_delta =
                 gate.pause_frames.take().map(|start| status.frames - start);
         }
+        if paused != gate.paused {
+            gate.input_epoch += 1;
+        }
         gate.paused = paused;
         if gate.active {
             status.phase = if gate.paused {
@@ -427,7 +464,7 @@ pub extern "C" fn mg_touch(handle: u64, x: f32, y: f32) -> i32 {
         enqueue(
             &control,
             Command::Touch {
-                generation: gate.generation,
+                stamp: InputStamp::capture(&gate, &lock(&control.status)),
                 x,
                 y,
             },
@@ -436,20 +473,22 @@ pub extern "C" fn mg_touch(handle: u64, x: f32, y: f32) -> i32 {
 }
 
 #[unsafe(no_mangle)]
-pub extern "C" fn mg_action(handle: u64, action: u32, _argument: u32) -> i32 {
+pub extern "C" fn mg_action(handle: u64, action: u32, argument: u32) -> i32 {
     guarded(|| {
-        if action != 0 {
-            return Err(INVALID_ARGUMENT);
-        }
+        let action = Action::parse(action, argument)?;
         let control = control(handle)?;
         let gate = lock(&control.gate);
         if gate.destroyed {
             return Err(INVALID_HANDLE);
         }
+        if matches!(action, Action::Choose { .. }) && (!gate.active || gate.paused) {
+            return Err(BUSY);
+        }
         enqueue(
             &control,
-            Command::Reset {
-                generation: gate.generation,
+            Command::Action {
+                stamp: InputStamp::capture(&gate, &lock(&control.status)),
+                action,
             },
         )
     })
@@ -478,9 +517,54 @@ pub unsafe extern "C" fn mg_status(handle: u64, buffer: *mut u8, capacity: u32) 
     .map_or(PANIC, |result| result.unwrap_or_else(|e| e))
 }
 
-fn worker(control: &Control, receiver: Receiver<Command>) {
+fn process_input(
+    control: &Control,
+    offline: &mut Offline,
+    command: Command,
+    metrics: Option<(u32, u32)>,
+    now_ms: u64,
+) {
+    match command {
+        Command::Touch { stamp, x, y } => {
+            let gate = lock(&control.gate);
+            if stamp.valid(&gate)
+                && let Some((width, height)) = metrics
+            {
+                offline.touch(x, y, width, height, stamp.round_id, now_ms);
+            }
+        }
+        Command::Action { stamp, action } => {
+            let mut gate = lock(&control.gate);
+            if matches!(action, Action::Reset | Action::Mode { .. }) {
+                if !gate.destroyed && gate.generation == stamp.generation {
+                    offline.apply(action, stamp.round_id, now_ms);
+                    if matches!(action, Action::Mode { .. }) {
+                        gate.input_epoch += 1;
+                    }
+                }
+            } else if !gate.destroyed
+                && gate.generation == stamp.generation
+                && !gate.paused
+                && (!matches!(action, Action::Choose { .. }) || stamp.valid(&gate))
+            {
+                offline.apply(action, stamp.round_id, now_ms);
+            } else {
+                offline.last_action_error =
+                    Some("Action invalidated by lifecycle or mode change".into());
+            }
+        }
+        _ => unreachable!("only input commands are dispatched here"),
+    }
+}
+
+fn now_ms(clock: Instant) -> u64 {
+    clock.elapsed().as_millis().min(u128::from(u64::MAX)) as u64
+}
+
+fn worker(control: &Control, receiver: Receiver<Command>, seed: u64) {
+    let clock = Instant::now();
     let mut session: Option<Session> = None;
-    let mut probe = Probe::default();
+    let mut offline = Offline::new(seed);
     let mut pending_recovery = None;
     let mut recovery_count = 0u32;
     loop {
@@ -573,15 +657,9 @@ fn worker(control: &Control, receiver: Receiver<Command>) {
                         s.renderer.resize(width, height);
                     }
                 }
-                Command::Touch { generation, x, y } => {
-                    if let Some(s) = session.as_ref().filter(|s| s.generation == generation) {
-                        probe.touch(x, y, s.width as f32, s.height as f32);
-                    }
-                }
-                Command::Reset { generation } => {
-                    if lock(&control.gate).generation == generation {
-                        probe.selected_lane = None;
-                    }
+                command @ (Command::Touch { .. } | Command::Action { .. }) => {
+                    let metrics = session.as_ref().map(|s| (s.width, s.height));
+                    process_input(control, &mut offline, command, metrics, now_ms(clock));
                 }
                 Command::Wake => {}
             }
@@ -590,13 +668,19 @@ fn worker(control: &Control, receiver: Receiver<Command>) {
         if lock(&control.gate).destroyed {
             break;
         }
+        let now_ms = now_ms(clock);
+        offline.advance(now_ms);
         {
             let mut status = lock(&control.status);
-            status.touches = probe.touches;
-            status.selected_lane = probe.selected_lane;
+            status.touches = offline.probe.touches;
+            status.selected_lane = offline.probe.selected_lane;
+            status.game = offline.snapshot();
+            status
+                .last_action_error
+                .clone_from(&offline.last_action_error);
         }
         if let Some(s) = session.as_mut().filter(|s| s.width > 0 && s.height > 0) {
-            let scene = probe.scene(s.width, s.height, s.scale);
+            let scene = offline.scene(s.width, s.height, s.scale, now_ms);
             let result = frame_transaction(
                 control,
                 s.generation,
@@ -641,6 +725,179 @@ fn worker(control: &Control, receiver: Receiver<Command>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn input_fixture() -> (u64, Arc<Control>, Receiver<Command>, Offline) {
+        let (sender, receiver) = mpsc::sync_channel(64);
+        let mut offline = Offline::new(42);
+        offline.apply(Action::Mode { race: true }, None, 0);
+        offline.apply(Action::Start, None, 0);
+        let control = Arc::new(Control {
+            gate: Mutex::new(Gate {
+                active: true,
+                generation: 1,
+                ..Default::default()
+            }),
+            status: Mutex::new(Status {
+                game: offline.snapshot(),
+                ..Default::default()
+            }),
+            sender,
+        });
+        let handle = lock(registry()).insert(control.clone()).unwrap();
+        (handle, control, receiver, offline)
+    }
+
+    #[test]
+    fn action_acceptance_is_separate_from_application_and_gpu_errors() {
+        let (handle, control, receiver, mut offline) = input_fixture();
+        lock(&control.status).last_error = Some("GPU failure fixture".into());
+        for (action, argument) in [(5, 0), (1, 2), (2, 1), (3, 3), (3, u32::MAX), (4, 1)] {
+            assert_eq!(mg_action(handle, action, argument), INVALID_ARGUMENT);
+            assert!(receiver.try_recv().is_err());
+        }
+        assert_eq!(mg_action(handle, 3, 1), 0);
+        assert_eq!(offline.snapshot().unwrap().players[1].choice, None);
+        process_input(
+            &control,
+            &mut offline,
+            receiver.try_recv().unwrap(),
+            None,
+            3_000,
+        );
+        assert_eq!(offline.last_action_error.as_deref(), Some("InvalidPhase"));
+        assert_eq!(
+            lock(&control.status).last_error.as_deref(),
+            Some("GPU failure fixture")
+        );
+        assert_eq!(mg_action(handle, 0, u32::MAX), 0);
+        process_input(
+            &control,
+            &mut offline,
+            receiver.try_recv().unwrap(),
+            None,
+            3_001,
+        );
+        assert!(offline.last_action_error.is_none());
+        assert_eq!(mg_destroy(handle), 0);
+    }
+
+    #[test]
+    fn delayed_touch_and_native_choices_are_discarded_after_lifecycle_changes() {
+        for native in [false, true] {
+            for change in 0..5 {
+                let (handle, control, receiver, mut offline) = input_fixture();
+                let accepted = if native {
+                    mg_action(handle, 3, 2)
+                } else {
+                    mg_touch(handle, 250.0, 100.0)
+                };
+                assert_eq!(accepted, 0);
+                let command = receiver.try_recv().unwrap();
+                match change {
+                    0 => {
+                        assert_eq!(mg_pause(handle, 1), 0);
+                    }
+                    1 => {
+                        assert_eq!(mg_pause(handle, 1), 0);
+                        assert_eq!(mg_pause(handle, 0), 0);
+                    }
+                    2 => {
+                        assert_eq!(mg_detach(handle), 0);
+                        lock(&control.gate).active = true;
+                    }
+                    3 => {
+                        assert_eq!(mg_destroy(handle), 0);
+                    }
+                    _ => {
+                        let stamp =
+                            InputStamp::capture(&lock(&control.gate), &lock(&control.status));
+                        process_input(
+                            &control,
+                            &mut offline,
+                            Command::Action {
+                                stamp,
+                                action: Action::Mode { race: false },
+                            },
+                            None,
+                            1,
+                        );
+                        offline.apply(Action::Mode { race: true }, None, 1);
+                    }
+                }
+                process_input(&control, &mut offline, command, Some((300, 400)), 2);
+                let snapshot = offline.snapshot().unwrap();
+                assert_eq!(snapshot.round_id, 1);
+                assert!(snapshot.players.iter().all(|p| p.choice.is_none()));
+                assert_eq!(offline.probe.touches, 0);
+                if change != 3 {
+                    assert_eq!(mg_destroy(handle), 0);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn recreated_surface_keeps_the_room_and_accepts_only_new_input() {
+        let (handle, control, receiver, mut offline) = input_fixture();
+        assert_eq!(mg_touch(handle, 150.0, 100.0), 0);
+        process_input(
+            &control,
+            &mut offline,
+            receiver.try_recv().unwrap(),
+            Some((300, 400)),
+            1,
+        );
+        let before = offline.snapshot().unwrap();
+        assert_eq!(mg_detach(handle), 0);
+        assert_eq!(mg_touch(handle, 150.0, 100.0), BUSY);
+        assert_eq!(mg_action(handle, 3, 1), BUSY);
+        assert_eq!(offline.snapshot().unwrap(), before);
+        let _wake = receiver.try_recv().unwrap();
+        lock(&control.gate).active = true;
+        assert_eq!(mg_action(handle, 3, 2), 0);
+        process_input(
+            &control,
+            &mut offline,
+            receiver.try_recv().unwrap(),
+            Some((600, 800)),
+            2,
+        );
+        assert_eq!(offline.snapshot().unwrap().players[1].choice, Some(2));
+        assert_eq!(mg_destroy(handle), 0);
+    }
+
+    #[test]
+    fn worker_publishes_seed_snapshot_and_game_error_through_the_existing_status() {
+        let handle = mg_create(987);
+        assert_eq!(mg_action(handle, 1, 1), 0);
+        assert_eq!(mg_action(handle, 4, 0), 0);
+        let deadline = Instant::now() + Duration::from_secs(2);
+        loop {
+            let status: serde_json::Value =
+                serde_json::from_str(&status_json(handle).unwrap()).unwrap();
+            if status["last_action_error"] == "InvalidPhase" {
+                assert_eq!(status["game"]["seed"], 987);
+                assert_eq!(status["game"]["phase"], "Waiting");
+                assert!(status["last_error"].is_null());
+                for key in [
+                    "touches",
+                    "selected_lane",
+                    "frames",
+                    "phase",
+                    "surface_generation",
+                ] {
+                    assert!(status.get(key).is_some());
+                }
+                break;
+            }
+            assert!(
+                Instant::now() < deadline,
+                "worker did not publish the action result: {status}"
+            );
+            thread::yield_now();
+        }
+        assert_eq!(mg_destroy(handle), 0);
+    }
 
     #[test]
     fn ffi_rejects_invalid_lifetime_and_buffer_contracts() {

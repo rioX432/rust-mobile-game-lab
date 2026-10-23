@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import org.json.JSONObject
 
 class MainActivity : Activity() {
     private val handler = Handler(Looper.getMainLooper())
@@ -52,10 +53,23 @@ class MainActivity : Activity() {
         controls.addView(Button(this).apply { setText(R.string.resize); setOnClickListener { resizeProbe() } },
             LinearLayout.LayoutParams(0, -2, 1f))
         root.addView(controls)
+        fun row(vararg actions: Pair<String, () -> Unit>) {
+            root.addView(LinearLayout(this).apply {
+                actions.forEach { (title, action) ->
+                    addView(Button(this@MainActivity).apply {
+                        text = title
+                        setOnClickListener { action() }
+                    }, LinearLayout.LayoutParams(0, -2, 1f))
+                }
+            })
+        }
+        row("Probe" to { session?.selectMode(false); Unit }, "Race" to { session?.selectMode(true); Unit })
+        row("Start / next" to { session?.startRound(); Unit }, "Close round" to { session?.closeRound(); Unit })
+        row(*Array(3) { option -> "Choose ${option + 1}" to { session?.nativeChoose(option); Unit } })
         container = FrameLayout(this)
         root.addView(container, LinearLayout.LayoutParams(-1, 0, 1f))
         status = TextView(this).apply { setText(R.string.closed); setTextIsSelectable(true) }
-        root.addView(ScrollView(this).apply { addView(status) }, LinearLayout.LayoutParams(-1, dp(160)))
+        root.addView(ScrollView(this).apply { addView(status) }, LinearLayout.LayoutParams(-1, dp(110)))
         root.addView(TextView(this).apply { setText(R.string.footer) })
         setContentView(root)
         updateCounters()
@@ -119,7 +133,7 @@ class MainActivity : Activity() {
                 if (!resumed || session !== current) return
                 val generation = current.generation
                 current.status(generation)?.let { json ->
-                    if (session === current && generation == current.generation) status.text = json
+                    if (session === current && generation == current.generation) status.text = readableStatus(json)
                 }
                 handler.postDelayed(this, 250)
             }
@@ -127,6 +141,18 @@ class MainActivity : Activity() {
         polling = task
         handler.post(task)
     }
+
+    private fun readableStatus(json: String): String = try {
+        val root = JSONObject(json)
+        val game = root.optJSONObject("game")
+        val summary = if (game == null) "Probe" else {
+            val result = game.optJSONObject("result")
+            val outcome = if (result == null) "pending" else
+                "order=${result.optJSONArray("lane_order")} counts=${result.optJSONArray("counts")} winners=${result.optJSONArray("winners")}"
+            "Race round ${game.optLong("round_id")} / ${game.optString("phase")}\nResult (lanes 0..2): $outcome"
+        }
+        "$summary\nAction error: ${root.opt("last_action_error")}\n$json"
+    } catch (_: Exception) { json }
 
     private fun stopPolling() {
         polling?.let { handler.removeCallbacks(it) }

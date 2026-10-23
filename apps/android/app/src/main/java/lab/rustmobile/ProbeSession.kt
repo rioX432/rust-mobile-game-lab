@@ -9,6 +9,7 @@ internal interface ProbeRuntime<S> {
     fun destroy(handle: Long): Int
     fun touch(handle: Long, x: Float, y: Float): Int
     fun reset(handle: Long): Int
+    fun action(handle: Long, action: Int, argument: Int): Int
     fun status(handle: Long): String
 }
 
@@ -67,6 +68,17 @@ internal class ProbeSession<S>(
 
     fun reset() {
         if (!closed) checked("reset", runtime.reset(handle))
+    }
+
+    fun selectMode(race: Boolean) = action(1, if (race) 1 else 0)
+    fun startRound() = action(2, 0)
+    fun nativeChoose(option: Int) {
+        if (attached && !paused) action(3, option)
+    }
+    fun closeRound() = action(4, 0)
+
+    private fun action(action: Int, argument: Int) {
+        if (!closed) checked("action:$action", runtime.action(handle, action, argument))
     }
 
     fun status(expectedGeneration: Long): String? =

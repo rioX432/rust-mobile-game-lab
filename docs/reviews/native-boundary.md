@@ -71,3 +71,35 @@ Surfaceの生ハンドル寿命は[wgpu 30.0.1の契約](https://docs.rs/wgpu/30
 **未確認:** 親が追加検証中の開閉10回・背景復帰5回の完了、初期化中detach/destroyと遅延結果のモバイル実行、実Surface Lost/device lost、今回のP1条件でのハング再現、実機動作・実機性能、ゲーム/通信、SDK消費側の最終受入。既存端末は操作していない。ディスク制約に従い追加GPUビルド・広範なテスト再実行もしていない。
 
 重点レビューの判定は **P1修正後に影響範囲を再確認**。Issue #5/#6/#7の受入完了やPoC完了を意味しない。本報告書だけを承認済みのローカルコミット対象とし、push・PR・merge・Issue closeは行わない。
+
+## P1修正の限定再確認（2026-10-24）
+
+**判定: 前回P1の原因に対する修正をソース上で確認した。指定範囲で修正を妨げる残存P1は確認されなかった。実GPUでの修正後確認は引き続き必要。** 上記の初回判定を、この範囲に限って更新する。全体レビュー、Issue受入完了、PoC完了の判定は行わない。
+
+### 対象・権限の証拠
+
+- 修正対象は `5f34102dd59477142b4f4a9c9e836c076beda947`。前回対象 `841b9ffc5da6e5396a4b4a1413d4ee3be6b77bd0` との差分のうち、取得待ち・送信前検査・破棄・Metal timeout・回帰テストだけを再確認した。
+- `pwd` と今回の実効セッション記録の `session_meta` / `turn_context` を照合。cwdは本Worktree、originatorは `codex_exec`、CLIは `0.164.0`、実効値は `workspace-write` / `on-request` / `auto_review`。専用Worktreeと一時領域の書込みを許可するmanaged/restricted profile、ネットワーク制限も確認した。設定ファイルのみの確認ではない。記録はGit対象外の `artifacts/native-p1-recheck-permissions.json` に保存。GUI表示は未確認。
+- 親・当該AGENTS.md、PoC指示、進捗、初回報告を読み、Issue [#5](https://github.com/rioX432/rust-mobile-game-lab/issues/5)・[#6](https://github.com/rioX432/rust-mobile-game-lab/issues/6)・[#7](https://github.com/rioX432/rust-mobile-game-lab/issues/7)の本文を取得して受入条件を確認した。今回の指示を優先し、追跡ファイルへの追記は本報告書のみ。実装、Cargo.lock、共有文書、端末は変更しない。
+
+### 修正根拠
+
+| 確認項目 | 確認したコードと結果 |
+|---|---|
+| 取得待ちとgateの分離 | `crates/runtime/src/lib.rs:179-205` の `frame_transaction` は最初のgateをスコープ末尾で解放してから `acquire` を実行する。実ワーカーも同関数から `prepare_frame` を呼ぶ（600-609行）。`crates/renderer/src/lib.rs:171-258` の取得・再configure・コマンド準備はこのgate外にあり、ここにはsubmit/presentがない。 |
+| submit前の再検査 | runtime 195-199行でgateを再取得し、active、paused、destroyed、世代一致を検査する。同じgateを保持したまま `submit_frame` とフレーム数更新を行う。pauseは358-385行、detach/destroyは `invalidate`（163-177行）で同じgateを使うため、取得中の無効化後に旧世代を新規submitする経路を防ぐ。 |
+| 無効フレームの破棄 | runtime 200-203行は `drop(gate)` → `drop(frame)` の順。取得済みフレームの破棄を停止・破棄APIと共有するgateに持ち込まない。固定依存wgpu 30.0.1の `SurfaceTexture::drop` は、未presentの通常経路で `texture_discard` を呼ぶこともローカル依存ソースで確認した。 |
+| Metal timeoutの再設定 | renderer 145-158行は `surface.configure` の後、Metalのrender layerをロックして `setAllowsNextDrawableTimeout(true)` を設定し、直後のgetterがfalseならエラーにする。初期化（118行）、resize/Suboptimalに伴う再構成（185-186行）、Outdated時（189-191行）はすべて同じ `configure` を通る。getterを呼ぶコードの存在を確認したもので、このレビューで実GPU上のgetter値を観測したものではない。 |
+| 故障注入テスト | runtime 695-766行の追加テストは、本番と同じ `frame_transaction` の取得クロージャをchannelで保留する。pause/detach/destroyの各C APIが取得解放前に2秒の検査期限内で完了すること、取得再開後のsubmitが0件、破棄が1回、フレーム数が0であることを検査する。疑似フレームのDrop内でgateの `try_lock` 成功も検査する。実Metal待機・GPU資源解放を注入するテストではない。 |
+
+固定依存wgpu-hal 30.0.1のconfigureがtimeoutをfalseに戻すこと、Metalの取得が引数timeoutを使用せず `nextDrawable` を呼び、nilをTimeoutに変換することを、ローカルソースと[固定コミットの公式ソース](https://github.com/gfx-rs/wgpu/blob/40f4a34ebaf56f9a046231f54125ad046239d3f3/wgpu-hal/src/metal/surface.rs#L329-L377)で照合した。[Appleの仕様](https://developer.apple.com/documentation/quartzcore/cametallayer/allowsnextdrawabletimeout)とインストール済みXcode SDKの `CAMetalLayer.h` は、timeout有効時にdrawable不足なら約1秒でnilを返すとしている。この仕様に対応した修正であり、OS・GPU・ドライバのあらゆる停止からの回復保証ではない。
+
+### テスト証拠と残る範囲
+
+- 親 `artifacts/native-review-fix-tests.log` で、追加待機テストを含むruntime **8件成功、失敗0件**を確認した。`artifacts/clippy.log` はrenderer/runtime/desktopのチェック完了と警告・エラーなしを確認した。strict Clippy（`-D warnings`）での実行は今回の依頼で提示された実行情報に基づく。ログ自体にはコマンド引数が記録されていない。
+- 確認時点で親と本Worktreeのruntime、renderer、Cargo.lockの内容一致を確認した。照合値と参照ログのSHA-256はGit対象外の `artifacts/native-p1-recheck-evidence.json` に保存した。ログにビルド元コミットの識別子はなく、実行当時のソースとの完全な対応まで独立保証するものではない。レビュー側でテスト・Clippy・大規模ビルドの再実行はしていない。
+- 両OSの開閉10回・背景復帰5回・再生成後入力の成功は、今回の依頼で共有された**旧実装の通常系結果**として受領した。修正後の実行成功の根拠には加えない。親による修正後の実GPU・ライフサイクル再確認結果は本追記時点で未確認。
+- **未確認:** 修正後モバイル環境での描画・入力・背景復帰・再生成・解放順、実GPUでのtimeout getter値と実際のdrawable不足時のタイムアウト、実機動作・性能。故障注入テストは取得待ちとライフサイクルAPIの同期関係を検査するもので、OS/GPUハング全般やワーカー終了時間の実測証拠ではない。
+- submit/presentそのものは引き続きgate内にある（renderer 261-264行）。今回解消を確認したのは**drawable取得待ちをUIの停止・破棄へ伝える経路**であり、submit/presentやドライバ内部の任意の長時間停止まで除去したとは判定しない。今回のソース確認で、そのような別の停止を具体的に確定した指摘はない。
+
+報告書のみを確認済みリポジトリローカル作者設定でローカルコミットする。push・PR・merge・Issue更新は行わない。

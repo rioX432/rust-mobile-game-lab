@@ -1,0 +1,8 @@
+Review session permission record (2026-10-24 JST)
+Working root: /Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab/.worktrees/review-offline
+Git root: /Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab/.worktrees/review-offline
+Branch: review/offline-race
+Effective filesystem sandbox from this session's execution context: workspace-write, writable root is this checkout (plus system temporary roots).
+Approval reviewer from this session's execution context: auto_review.
+Approval policy on-request: UNVERIFIED; the active session context did not expose an independently readable approval_policy value.
+This record reflects the active session context, not a repository config file.

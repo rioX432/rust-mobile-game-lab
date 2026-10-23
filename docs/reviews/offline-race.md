@@ -31,3 +31,5 @@
 ## 次の確認
 
 統合担当の両OSビルドと実操作結果を進捗記録へ反映する。通信、投票、SDK、実機、性能はこのレビュー対象外の未完了条件として維持する。
+
+統合担当はレビューセッションの`turn_context`を直接読み、専用cwd、`approval_policy=on-request`、`approvals_reviewer=auto_review`、`sandbox_policy.type=workspace-write`を確認した。秘密を除いた確認記録はローカルの`artifacts/offline-review-permissions-readback.json`。レビュー担当自身の確認範囲とは区別する。

@@ -1,0 +1,2311 @@
+{
+  "note": "iOS accessibility values may be truncated. Partial records contain only fields observed in the visible prefix and human-readable summary; unobserved timing fields are omitted.",
+  "records": [
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 603,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 773,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 1,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 1,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 631,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 814,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 2,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 2,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 623,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 3,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 594,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 3,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 714,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 602,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 4,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 4,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 611,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 573,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 5,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 5,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 6,
+      "status": {
+        "phase": "Running",
+        "frames": 670,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 6,
+      "status": {
+        "phase": "Running",
+        "frames": 578,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 6,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 6,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 7,
+      "status": {
+        "phase": "Running",
+        "frames": 637,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 7,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 7,
+      "status": {
+        "phase": "Running",
+        "frames": 653,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 7,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 8,
+      "status": {
+        "phase": "Running",
+        "frames": 922,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 8,
+      "status": {
+        "phase": "Running",
+        "frames": 369,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 8,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 8,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 9,
+      "status": {
+        "phase": "Running",
+        "frames": 648,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 9,
+      "status": {
+        "phase": "Running",
+        "frames": 670,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 9,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 9,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "open_race",
+      "cycle": 10,
+      "status": {
+        "phase": "Running",
+        "frames": 945,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "open_race",
+      "cycle": 10,
+      "status": {
+        "phase": "Running",
+        "frames": 910,
+        "touches": 0,
+        "selected_lane": null,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 0,
+          "revision": 1,
+          "phase": "Waiting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": null
+            }
+          ],
+          "result": null,
+          "closes_at_ms": null,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "close",
+      "cycle": 10,
+      "closed": true
+    },
+    {
+      "device": "ios",
+      "step": "close",
+      "cycle": 10,
+      "closed": true
+    },
+    {
+      "device": "android",
+      "step": "touch_input",
+      "round": 1,
+      "option": 0,
+      "status": {
+        "phase": "Running",
+        "frames": 1084,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 1,
+          "revision": 3,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 0
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 26000,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "result",
+      "round": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 1251,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 1,
+          "revision": 5,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 0
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              1,
+              0,
+              0
+            ],
+            "winners": [
+              2
+            ]
+          },
+          "closes_at_ms": 26000,
+          "animation_ends_at_ms": 27800
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "native_input",
+      "round": 2,
+      "option": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 1877,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 7,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "result",
+      "round": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 1996,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "touch_input",
+      "round": 1,
+      "option": 0,
+      "status": {
+        "phase": "Running",
+        "frames": 1493,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 1,
+          "revision": 3,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 0
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 32313,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "result",
+      "round": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 1655,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 1,
+          "revision": 5,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 0
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              1,
+              0,
+              0
+            ],
+            "winners": [
+              2
+            ]
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 1 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[1, 0, 0] winners=[2]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":1655,\"touches\":1,\"selected_lane\":0,\"surface_generation\":1,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":1,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":1,\"revision\":5,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":0}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[1,0,0],\"winners\":[2]},\"closes_at_"
+    },
+    {
+      "device": "ios",
+      "step": "native_input",
+      "round": 2,
+      "option": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 2327,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 7,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 49329,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "result",
+      "round": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 2548,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":2548,\"touches\":1,\"selected_lane\":0,\"surface_generation\":1,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":1,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "android",
+      "step": "mode_roundtrip",
+      "status": {
+        "phase": "Running",
+        "frames": 3189,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 3450,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 3,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 2,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "mode_roundtrip",
+      "status": {
+        "phase": "Running",
+        "frames": 3613,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 1,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 1,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":3613,\"touches\":1,\"selected_lane\":0,\"surface_generation\":1,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":1,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 3662,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 5,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 3,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 1,
+      "status": {
+        "phase": "Running",
+        "frames": 3864,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 3,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 2,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":3864,\"touches\":1,\"selected_lane\":0,\"surface_generation\":3,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":2,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 3957,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 7,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 4,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 4133,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 9,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 5,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 4380,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 5,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 3,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":4380,\"touches\":1,\"selected_lane\":0,\"surface_generation\":5,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":3,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "android",
+      "step": "background_resume",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 4328,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 4741,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 7,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 4,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":4741,\"touches\":1,\"selected_lane\":0,\"surface_generation\":7,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":4,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "android",
+      "step": "resize_recreate",
+      "status": {
+        "phase": "Running",
+        "frames": 4852,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 2,
+          "revision": 9,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 43202,
+          "animation_ends_at_ms": 45002
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "touch_input",
+      "round": 3,
+      "option": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 5218,
+        "touches": 2,
+        "selected_lane": 2,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 3,
+          "revision": 11,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 2
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 160339,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "android",
+      "step": "result",
+      "round": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 5340,
+        "touches": 2,
+        "selected_lane": 2,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 3,
+          "revision": 13,
+          "phase": "Result",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 2
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              1,
+              2
+            ],
+            "counts": [
+              0,
+              0,
+              1
+            ],
+            "winners": []
+          },
+          "closes_at_ms": 160339,
+          "animation_ends_at_ms": 162139
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 4,
+      "status": {
+        "phase": "Running",
+        "frames": 5055,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 9,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 5,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":5055,\"touches\":1,\"selected_lane\":0,\"surface_generation\":9,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":5,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_ms"
+    },
+    {
+      "device": "ios",
+      "step": "background_resume",
+      "cycle": 5,
+      "status": {
+        "phase": "Running",
+        "frames": 5352,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 11,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":5352,\"touches\":1,\"selected_lane\":0,\"surface_generation\":11,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":6,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_m"
+    },
+    {
+      "device": "ios",
+      "step": "resize_recreate",
+      "status": {
+        "phase": "Running",
+        "frames": 5947,
+        "touches": 1,
+        "selected_lane": 0,
+        "surface_generation": 13,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 2,
+          "revision": 9,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 1
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              2,
+              1
+            ],
+            "counts": [
+              0,
+              1,
+              0
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 2 / Result\nResult (lanes 0..2): order=[0, 2, 1] counts=[0, 1, 0] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":5947,\"touches\":1,\"selected_lane\":0,\"surface_generation\":13,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":6,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":2,\"revision\":9,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":1}],\"result\":{\"lane_order\":[0,2,1],\"counts\":[0,1,0],\"winners\":[]},\"closes_at_m"
+    },
+    {
+      "device": "ios",
+      "step": "touch_input",
+      "round": 3,
+      "option": 2,
+      "status": {
+        "phase": "Running",
+        "frames": 6376,
+        "touches": 2,
+        "selected_lane": 2,
+        "surface_generation": 13,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "game": "Race",
+          "round_id": 3,
+          "revision": 11,
+          "phase": "Selecting",
+          "seed": 42,
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 2
+            }
+          ],
+          "result": null,
+          "closes_at_ms": 184413,
+          "animation_ends_at_ms": null
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": true
+    },
+    {
+      "device": "ios",
+      "step": "result",
+      "round": 3,
+      "status": {
+        "phase": "Running",
+        "frames": 6548,
+        "touches": 2,
+        "selected_lane": 2,
+        "surface_generation": 13,
+        "live_instances": 1,
+        "live_workers": 1,
+        "retained_targets": 1,
+        "pauses": 6,
+        "last_pause_frame_delta": 0,
+        "last_error": null,
+        "game": {
+          "round_id": 3,
+          "revision": 13,
+          "seed": 42,
+          "game": "Race",
+          "phase": "Result",
+          "players": [
+            {
+              "id": 1,
+              "choice": null
+            },
+            {
+              "id": 2,
+              "choice": 2
+            }
+          ],
+          "result": {
+            "lane_order": [
+              0,
+              1,
+              2
+            ],
+            "counts": [
+              0,
+              0,
+              1
+            ],
+            "winners": []
+          }
+        },
+        "last_action_error": null
+      },
+      "snapshot_complete": false,
+      "observed_prefix": "Race round 3 / Result\nResult (lanes 0..2): order=[0, 1, 2] counts=[0, 0, 1] winners=[]\nAction error: <null>\n{\"phase\":\"Running\",\"frames\":6548,\"touches\":2,\"selected_lane\":2,\"surface_generation\":13,\"live_instances\":1,\"live_workers\":1,\"retained_targets\":1,\"pauses\":6,\"last_pause_frame_delta\":0,\"last_error\":null,\"game\":{\"game\":\"Race\",\"round_id\":3,\"revision\":13,\"phase\":\"Result\",\"seed\":42,\"players\":[{\"id\":1,\"choice\":null},{\"id\":2,\"choice\":2}],\"result\":{\"lane_order\":[0,1,2],\"counts\":[0,0,1],\"winners\":[]},\"closes_at_"
+    }
+  ],
+  "results": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "device": "android",
+        "ok": true,
+        "open_close_cycles": 10,
+        "background_cycles": 5,
+        "final": {
+          "phase": "Running",
+          "frames": 5340,
+          "touches": 2,
+          "selected_lane": 2,
+          "surface_generation": 11,
+          "live_instances": 1,
+          "live_workers": 1,
+          "retained_targets": 1,
+          "pauses": 6,
+          "last_pause_frame_delta": 0,
+          "last_error": null,
+          "game": {
+            "game": "Race",
+            "round_id": 3,
+            "revision": 13,
+            "phase": "Result",
+            "seed": 42,
+            "players": [
+              {
+                "id": 1,
+                "choice": null
+              },
+              {
+                "id": 2,
+                "choice": 2
+              }
+            ],
+            "result": {
+              "lane_order": [
+                0,
+                1,
+                2
+              ],
+              "counts": [
+                0,
+                0,
+                1
+              ],
+              "winners": []
+            },
+            "closes_at_ms": 160339,
+            "animation_ends_at_ms": 162139
+          },
+          "last_action_error": null
+        }
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "device": "ios",
+        "ok": true,
+        "open_close_cycles": 10,
+        "background_cycles": 5,
+        "final": {
+          "phase": "Running",
+          "frames": 6548,
+          "touches": 2,
+          "selected_lane": 2,
+          "surface_generation": 13,
+          "live_instances": 1,
+          "live_workers": 1,
+          "retained_targets": 1,
+          "pauses": 6,
+          "last_pause_frame_delta": 0,
+          "last_error": null,
+          "game": {
+            "round_id": 3,
+            "revision": 13,
+            "seed": 42,
+            "game": "Race",
+            "phase": "Result",
+            "players": [
+              {
+                "id": 1,
+                "choice": null
+              },
+              {
+                "id": 2,
+                "choice": 2
+              }
+            ],
+            "result": {
+              "lane_order": [
+                0,
+                1,
+                2
+              ],
+              "counts": [
+                0,
+                0,
+                1
+              ],
+              "winners": []
+            }
+          },
+          "last_action_error": null
+        }
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # オフラインレースのネイティブ接続
 
 対象: [レース #3](https://github.com/rioX432/rust-mobile-game-lab/issues/3)、[Android #6](https://github.com/rioX432/rust-mobile-game-lab/issues/6)、[iOS #7](https://github.com/rioX432/rust-mobile-game-lab/issues/7)のオフライン部分。
-ブランチは`feat/offline-native-race`、基点は`b7721a8`。ネットワーク、core/game、renderer、共有manifest/lock、scriptsは変更していない。共通の進捗は統合担当が`docs/progress.md`へ反映する。
+統合ブランチは`feat/offline-race`。coreと両OSホストを統合し、Emulator/Simulatorで実行した。今回の完了範囲はオフラインレースまでで、PoC全体の完了ではない。
 
 ## 実装
 
@@ -35,8 +35,8 @@ RoomはSurfaceより長命で、再生成やProbeへの切替でも維持する�
 | Rust静的検査 | `fmt --all -- --check`、対象2crateの`clippy --all-targets -- -D warnings`成功。`artifacts/rust-fmt.log`、`artifacts/rust-clippy.log` |
 | Androidホスト | SDK35のandroid.jarで全Kotlinホストをコンパイルし、RecordingRuntimeを使うJUnit 4件成功。リソースIDはテスト用スタブ。APK生成・JNI実行ではない。`artifacts/android-purehost.log` |
 | iOSソース | SDK26.5、arm64 iOS16 Simulator向けSwiftオブジェクト生成成功。Rustリンクなし。`artifacts/ios-source-check.log` |
-| Swift文字表示 | macOSで`RuntimeStatusTests`実行成功。Probe、Selecting、Result、操作拒否、壊れたJSONを確認。iOS実行ではない。`artifacts/ios-status-test.log` |
-| 両OSアプリビルド・端末・性能 | 今回は未実施・未確認。統合担当が実施する |
+| Swift文字表示 | 下記のSimulator実操作と画像で確認。表示文言一致だけの補助テストは受入に採用せず、削除した |
+| 統合検証 | Rust core16 / renderer4 / runtime16、format、strict Clippy、Android JUnit4 / lint / APK、iOS Simulatorアプリの実リンクビルドが成功。両OSの実操作は下記。実機・性能は未確認 |
 
 Rustは専用`artifacts/target-race-host`だけを使用し、debug情報とincrementalを無効にした。テストのビルドにはtoolchainの`rust-objcopy`が`libLLVM.dylib`を見つけられない警告があるが、32件成功しClippyも通過した。toolchain自体は変更していない。Androidのコンパイル警告は既存のInsets/Back APIの非推奨警告。
 
@@ -49,10 +49,6 @@ scripts/cargo.sh test -p game-runtime -p game-core --locked
 scripts/cargo.sh fmt --all -- --check
 scripts/cargo.sh clippy -p game-runtime -p game-core --all-targets --locked -- -D warnings
 scripts/ios-build.sh check-sources
-xcrun swiftc -module-cache-path "$PWD/artifacts/swift-module-cache" \
-  apps/ios/Sources/RuntimeStatus.swift apps/ios/Tests/RuntimeStatusTests.swift \
-  -o artifacts/ios-status-test
-artifacts/ios-status-test
 ```
 
 アプリビルドは統合担当のビルド用targetと容量管理に従う。既存の`scripts/ios-build.sh simulator`はtargetを上書きするため、上記専用target設定だけでは分離できない。
@@ -63,4 +59,19 @@ artifacts/ios-status-test
 4. 選択中にSurface/Layer再生成、背景移行・復帰、Race/Probe往復を行い、同じroundとRoom状態が継続し、古い入力が次roundへ入らないことを確認する。
 5. ネイティブUIの全操作・状態表示・描画領域が縦画面に収まり操作できることを実画面で確認する。Androidは描画領域を残り高さに配分し、iOSは高さの35%（Resize時25%）に制約、JSONはスクロール領域へ置いた。実画面の収まりは未確認。
 
-オフライン一巡のEmulator/Simulator証拠、実機、性能、ネットワーク条件は未確認。Issueは閉じず、PoC完了としない。
+## 統合担当による実行結果
+
+対象コードは`35a7354`のRust/core/両OSホスト。以後の変更は表示文言一致テストの除外と記録のみ。2026-10-24、専用Android Emulator（API35 arm64 / 1080×2340）とiPhone17 Simulator（iOS26.5 / scale3）で実行した。AndroidはDebug APK+Rust release、iOSはDebug app+Rust debug。実機性能の条件ではない。
+
+- 両OSそれぞれ、画面を開く→RaceのWaiting/round0→閉じるを10回。各回で管理インスタンス・worker・NativeTargetが各1、閉じた後はゲーム領域が消えることを確認。
+- 最終再オープン後、seed42のround1でRust領域の左レーンをタッチ。両OSとも`lane_order=[0,2,1] / counts=[1,0,0] / winners=[2]`でResult。
+- Start/nextでround2を開始し、ネイティブChoose2から入力。両OSとも`counts=[0,1,0]`でResult。Probe/Race往復後も同じRoom/結果を保持。
+- ResultでHome→アプリ復帰を5回。round/参加者/結果を保持し、Rustの停止中描画提出増分は各回0。各回の管理インスタンス・worker・NativeTargetは各1。
+- Resize、iOSはさらにNew layerを実行。同じRoomを保持し、round3で再生成後の右レーンタッチが成功。両OSとも`lane_order=[0,1,2] / counts=[0,0,1] / winners=[]`でResult、GPU/ゲーム操作エラーなし。
+- 両OSの上下ネイティブUI、描画領域、入力、結果表示が収まることを実画面の画像で確認した。
+
+[Android実行画像](evidence/android-offline-race.png)、[iOS実行画像](evidence/ios-offline-race.png)、[検証記録](evidence/offline-mobile-acceptance.json)。iOSのアクセシビリティ取得値には長さ制限があり、長いResult JSONは途中までしか取得できない。記録の`snapshot_complete=false`は、実際に見えたJSON先頭と結果要約の項目だけを採取したことを表し、未取得の締切時刻等は補っていない。iOSの実行画像では、取得値から切れた時刻等を含む全JSONが画面に表示されている。
+
+初回の個別ツール往復では3秒の受付を過ぎ、入力がInvalidPhaseとして拒否された。受付時間は変更せず、既知のStart/タッチ操作をbatchで送って再オープンから検証し直した。成功記録は上記の専用ファイルに保存。フレーム数はGPUへの提出カウンタであり、FPS/実提示間隔ではない。
+
+未確認は動的な画面密度変更、実機、実GPU/OSハング、実Surface/Device Lostの故障注入、通信・投票・SDK最終取り込み・性能/サイズ測定。バックグラウンド5回のゲーム状態はResultで検証しており、全phaseの総当たりではない。未検証条件を持つIssueと親Issueは閉じず、PoC完了としない。

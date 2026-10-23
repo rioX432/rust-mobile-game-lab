@@ -491,6 +491,7 @@ dependencies = [
  "game-renderer",
  "jni 0.21.1",
  "pollster",
+ "raw-window-handle",
  "serde",
  "serde_json",
  "wgpu",

@@ -11,8 +11,10 @@ case "$mode" in
 esac
 
 sdk_version=$(xcrun --sdk "$sdk" --show-sdk-version)
-if [[ "$sdk_version" != "26.5" ]]; then
-    echo "Expected $sdk SDK 26.5, found $sdk_version" >&2
+expected_sdk_version=${IOS_SDK_VERSION:-26.5}
+echo "iOS build SDK: $sdk $sdk_version (expected $expected_sdk_version), target: $triple"
+if [[ "$sdk_version" != "$expected_sdk_version" ]]; then
+    echo "Expected $sdk SDK $expected_sdk_version, found $sdk_version" >&2
     exit 1
 fi
 build_dir="$repo_dir/apps/ios/build"

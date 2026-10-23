@@ -47,6 +47,9 @@ impl Renderer {
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor {
                 label: Some("2D renderer"),
+                // Shape rendering does not need WebGPU's higher shader limits.
+                required_limits: wgpu::Limits::downlevel_defaults()
+                    .using_resolution(adapter.limits()),
                 ..Default::default()
             })
             .await

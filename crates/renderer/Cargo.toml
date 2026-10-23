@@ -3,7 +3,6 @@ name = "game-renderer"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-license.workspace = true
 
 [dependencies]
 game-core.workspace = true

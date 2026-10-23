@@ -1,43 +1,55 @@
 # 現在地（2026-10-24 JST）
 
-PoC未完了。リポジトリ作成と再開準備まで。実装・ビルド・起動・実機・性能測定は未確認。
+PoC未完了。最初の図形・入力・Surface寿命を実装中。ゲーム/通信は未接続。
 
-## 作業ルートと権限
+## 確認済み
 
-- リポジトリ: https://github.com/rioX432/rust-mobile-game-lab （Public、rioの後続承認による）。所有者ADMIN権限を確認。
-- フォルダ: `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`
-- 初期ブランチ: `main`。既存内容なしを確認してclone。作者はrioX432に紐付くGitHub上の既存コミットから確認し、ローカル設定へ適用。
-- `.codex/config.toml`へ`workspace-write/on-request/auto_review`を保存済み。
-- 最終確認の実効セッション記録は`on-request/auto_review`、workspace profile。自動レビュー選択は記録で確認した（初回のuserから変更されている）。GUI選択は未確認。
-- **専用ルートへの変更が未完了**。現セッションのcwdは親のAnotherBall。ファイル保存を専用ルートでの実効設定確認として扱わない。
-- CodexアプリのComputer Useは禁止されている。内部DBや信頼データの直接書き換えは行わない。ユーザー全体の設定は変更していない。
+- リポジトリ: https://github.com/rioX432/rust-mobile-game-lab （Public、rio承認済み）
+- 作業ルート: `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`
+- 再開後の実効セッション記録とdeveloper指示で`workspace-write/on-request/auto_review`、専用ルートを確認。GUI表示は未確認（操作禁止）。
+- 作者はrioX432に紐付くローカル設定。初期記録はmainへpush済み。
+- 現ブランチ: `feat/native-embedding`。共有契約コミット`5fef344`。
+- コアの座標/密度/復帰時間テスト3件、レジストリの無効ID/世代/上限テスト3件が成功。
+- Rust 1.99.0 / wgpu 30.0.1 / winit 0.30.13、Cargo.lockを作成。詳細はdocs/contracts.mdとdocs/adr/0001-native-embedding.md。
 
-## 完了した準備
+## Issue・PR
 
-- 仕様全文を`prompts/codex-poc.md`へ保存。Publicへの変更は別途rioが承認。
-- `README.md`、`AGENTS.md`、環境、計画、受入表、Issue本文を作成。
 - 親Issue: https://github.com/rioX432/rust-mobile-game-lab/issues/1
-- 子Issue: https://github.com/rioX432/rust-mobile-game-lab/issues/2 から https://github.com/rioX432/rust-mobile-game-lab/issues/13 。対応と実際の依存先は`docs/plan.md`。受入条件を満たしたIssueはまだない。
-- マージ済みPRなし。実装PRなし。準備のみの初期コミット`a337f06`をmainへpushし、GitHub上で作者のrioX432への紐付けも確認した。
-- 環境診断は`docs/environment.md`。SDK/NDK/Xcodeは導入済み、利用する版の互換性確認・固定は次段階。
-- サンドボックス内のGitHub/Simulator/ADB接続失敗は正規の権限昇格で再確認。SDK不足とは区別した。
+- 開発環境/契約: https://github.com/rioX432/rust-mobile-game-lab/issues/2
+- 描画/Desktop: https://github.com/rioX432/rust-mobile-game-lab/issues/4
+- FFI/寿命: https://github.com/rioX432/rust-mobile-game-lab/issues/5
+- Android: https://github.com/rioX432/rust-mobile-game-lab/issues/6
+- iOS: https://github.com/rioX432/rust-mobile-game-lab/issues/7
+- 全対応はdocs/plan.md。完了Issueなし、実装PR/マージ済みPRなし。
 
-## 次の操作
+## 並列作業
 
-現在のCLIを終了して、同じスレッドを正式なオプションで開き直す（CLI 0.164.0の`resume --help`で確認済み）。同じスレッドを同時に2つのCLIで稼働させない。
+基点は共有契約コミット。各ワーカーは`codex exec --cd <worktree> --approve-for-me`で開始し、それぞれ実効セッション記録を`artifacts/worker-permissions.txt`へ保存した。
+
+| 担当 | Worktree / branch | 編集範囲 |
+|---|---|---|
+| Android | `.worktrees/android` / `feat/android-native` | apps/android、scripts/android*.sh、docs/android.md |
+| iOS | `.worktrees/ios` / `feat/ios-native` | apps/ios、scripts/ios*.sh、docs/ios.md |
+| 描画/Desktop | `.worktrees/renderer` / `feat/shared-renderer` | crates/renderer、apps/desktop、docs/renderer.md |
+
+統合担当はcore/runtime/共有契約/Cargo.lock/CIを所有する。workerはローカルcommitのみ、統合担当が検証・PR・マージを管理する。同一ディレクトリを共同編集しない。
+
+## 次の作業
+
+1. ランタイムとJNI/C ABIを完成させ、描画ワーカーのコードを統合して境界テスト。
+2. Android/iOSホストを統合し、両OSの専用Emulator/Simulatorで図形・タッチ・開閉・復帰・再生成を実行。
+3. FFIと両OSの重点レビュー、修正と再検証、実装PRを作成してCI通過後にmerge commitで統合。
+4. その後、オフラインレース→通信→投票→SDK消費側→実機/性能へ進む。
 
 ```sh
-codex resume 01a16961-c487-7d63-b9d5-55c57af3e782 --cd /Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab --approve-for-me
+scripts/cargo.sh test --workspace --locked
+scripts/cargo.sh clippy --workspace --all-targets --locked -- -D warnings
+scripts/android-build.sh
+scripts/ios-build.sh
 ```
 
-信頼確認が出た場合は正規の画面で確認する。再開したセッションで`/permissions`と`/status`を確認し、作業ルートと実効`workspace-write/on-request/auto_review`を記録する。GUI選択を確認していない場合、GUI確認済みとは書かない。
+後2つのスクリプトはワーカー作業中。未実施のチェックを成功と扱わない。
 
-再開指示:
+## 未確認・未完了
 
-> docs/progress.mdとprompts/codex-poc.mdを読み、作業ルートとApprove for meの実効状態を確認して続行。まず環境・共通契約Issueを進め、両OSの図形・タッチ・Surface再生成を早期に検証する。共有契約確定後は独立Worktreeのサブエージェントへ分担する。既存Issueは再作成しない。検証とレビューを通したPRをmerge commitでmainへ統合する。実機条件が未確認の間はPoC完了としない。
-
-## 未検証・未完了
-
-全12子Issueの受入条件、専用ルートでの実効Permissions、Rust描画/FFI/ゲーム/通信実装、各OSビルドと起動、実機、5分性能、生成SDKの消費側実行、重点レビュー3回と実装PR統合。Android実機は接続なし。iOS実機は今回の使用対象として未確認。
-
-Permissions反映のため開き直しが必要な場合は進捗保存と再開操作を案内する、という仕様の指示に従い、この段階で新ルートでのセッション再開を待つ。これはPoC完了や目標の取り下げではない。
+現在の変更全体のビルド、両OS/ Desktopでの起動と入力、Surface寿命の実行検証、実機、ゲーム/通信、投票、SDK、性能測定、3回の重点レビュー、実装PR統合。Android実機は接続なし。iOS実機は今回の使用対象として未確認。必須条件が残る間、親Issueを閉じずPoC完了としない。

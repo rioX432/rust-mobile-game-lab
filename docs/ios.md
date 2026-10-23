@@ -21,7 +21,7 @@
 
 ## ビルドと統合
 
-リポジトリルートで実行する。XcodeGen 2.45.4、Xcode 26.6（17F113）、iPhoneOS/iPhoneSimulator SDK 26.5を確認した。両モードでSDK 26.5を検査する。Rustは`scripts/cargo.sh`経由の固定1.99.0、`--locked`を使用する。
+リポジトリルートで実行する。XcodeGen 2.45.4、Xcode 26.6（17F113）、iPhoneOS/iPhoneSimulator SDK 26.5を確認した。既定ではSDK 26.5を検査する。別のSDKを使う場合は`IOS_SDK_VERSION`へ期待版を明示する。CIではランナーの選択中SDK版を明示し、スクリプトが実際の版とtargetをログへ出す。Rustは`scripts/cargo.sh`経由の固定1.99.0、`--locked`を使用する。
 
 ```sh
 # Swiftソースを実SDKでオブジェクトへコンパイル。リンク・起動の証拠にはしない。

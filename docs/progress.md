@@ -1,11 +1,11 @@
 # 現在地（2026-10-24 JST）
 
-rioが今回の到達範囲を「両OSでオフラインレースを一巡させ、検証・修正・PR・マージ・記録まで」と選択した。オフライン実行は確認済み。今回のPR・CI・マージを進めている。PoC全体は未完了。
+rioが今回の到達範囲を「両OSでオフラインレースを一巡させ、検証・修正・PR・マージ・記録まで」と選択した。オフライン範囲の実装・両OS実行・独立レビューを確認済み。成果の受入と統合状態は[PR #15](https://github.com/rioX432/rust-mobile-game-lab/pull/15)に記録する。PoC全体は未完了。
 
 ## 作業ルートとPermissions
 
 - https://github.com/rioX432/rust-mobile-game-lab （Public、rio承認済み）
-- `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`、現在`feat/offline-race`。
+- `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`、成果ブランチ`feat/offline-race`、統合先`main`。
 - 実効設定は`workspace-write / on-request / auto_review`。rootはdeveloperの実効設定とpwd、独立WorktreeはCLIの`turn_context`で確認。CLI0.164.0の`--cd / --approve-for-me`を使用。`.codex/config.toml`への保存だけとは区別している。GUI表示は操作禁止のため未確認。
 - Git作者はrioX432に紐付くrepo-local設定を維持。保護ルールを回避せず、merge commitのみを使う。
 - 利用上限で止まった操作は未実行として保存し、rioの回復連絡後に正規の自動レビューで再開した。Full access/never等へ置換していない。
@@ -22,17 +22,17 @@ rioが今回の到達範囲を「両OSでオフラインレースを一巡させ
 ## Issue・PR
 
 - 親: https://github.com/rioX432/rust-mobile-game-lab/issues/1 （PoC未完了、openを維持）
-- コアレース: https://github.com/rioX432/rust-mobile-game-lab/issues/3 （受入条件のコア検証成功。今回PRのmerge後にcloseを判断）
+- コアレース: https://github.com/rioX432/rust-mobile-game-lab/issues/3 （コア受入条件の検証成功。受入の証拠は今回PRとrace.md）
 - Android: https://github.com/rioX432/rust-mobile-game-lab/issues/6 、iOS: https://github.com/rioX432/rust-mobile-game-lab/issues/7 （オフライン埋め込み確認済み。密度変更/実機等の未確認は残す）
 - 初期ネイティブPR: https://github.com/rioX432/rust-mobile-game-lab/pull/14 （merge済み、505c469）
-- 今回のオフラインPRは作成前。実URLを作成後に追記する。Issue対応全件は[plan.md](plan.md)。
+- オフラインPR: https://github.com/rioX432/rust-mobile-game-lab/pull/15 。[Rust/Android/iOSのChecks](https://github.com/rioX432/rust-mobile-game-lab/pull/15/checks)で最新commitのCI結果を確認できる。Issue対応全件は[plan.md](plan.md)。
 
 ## レビューと実行証拠
 
 - [初回FFI/Surface寿命レビュー](reviews/native-boundary.md): Metal取得待ち中のgate保持を修正し、遅延取得の故障注入テストと両OS再実行を確認済み。
 - [オフライン規則/遅延入力/両OS境界レビュー](reviews/offline-race.md): 限定範囲でP1/P2なし。rootはその後に実アプリ検証を実施。
 - repo固有clean-slop/create-prは存在しない。中央clean-slopを適用し、必要な安全契約コメントを保持した。PRはrepoテンプレートを使う。
-- コード基点35a7354のアプリで実行。以後は文言一致だけの補助テストの除外と記録のみ。完全なローカルログは`artifacts/offline-{rust-validation,android-build,ios-build}.log`と`offline-mobile-acceptance.json`、iOS stderr/stdout。
+- コード基点35a7354のアプリで実行。以後は文言一致だけの補助テストの除外と記録のみ。完全なローカルログは`artifacts/offline-{rust-validation,android-build,ios-build}.log`と`offline-mobile-acceptance.json`、iOS stderr/stdout、`offline-android-runtime.log`。両OSの実行ログでSurface破棄→Native参照解放の順を確認した。
 
 ## 保留した成果の保存先
 
@@ -56,6 +56,7 @@ rioが今回の到達範囲を「両OSでオフラインレースを一巡させ
 再現はrepoルートで:
 
 ```sh
+gh pr checks 15 --repo rioX432/rust-mobile-game-lab
 scripts/cargo.sh test --workspace --locked
 scripts/cargo.sh run -p game-core --example offline_race --locked
 scripts/android-build.sh

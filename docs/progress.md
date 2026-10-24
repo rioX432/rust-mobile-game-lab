@@ -19,6 +19,12 @@
 | feat/race-network | 4e209e0 | SDK生成・通信の実験、消費側実証不足 |
 | feat/offline-native-race | 72c6685 | オフライン統合の元。mainへ統合済み |
 
+## Embedded Host連結への準備（新規、製品統合未受入）
+
+- G19 #37・G20 #38を追加。Standalone / Public dummy Embedded / Private Consumerを[専用設計](EMBEDDED_RENDERER.md)で分離。
+- 2D `EmbeddedRenderer` のHost Device/Queue/TextureView APIを実装スパイク。**GPU smokeはignored、実合成・3D・Native consumerは未確認**。既存Standaloneは維持する。
+- 後続はG19で公開Dummy Hostの単一GPU/Texture合成、G20でPrivate実Avatar/RTC連結。G13独立SDKの成否と混同しない。
+
 ## 次の実行順
 1. G01で旧参照を外し新ドキュメントとIssue整理、ローカル資産の棚卸し。
 2. G02 Nativeの残検証、G03 3D方式比較、G04 SEEDデザイン・権利を並列で。

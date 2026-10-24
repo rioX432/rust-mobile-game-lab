@@ -9,22 +9,34 @@
 | P0 | [G04 #20](https://github.com/rioX432/rust-mobile-game-lab/issues/20) | SEED参照・公開権利・2D/3D試作 | G01 |
 | P1 | [G05 #21](https://github.com/rioX432/rust-mobile-game-lab/issues/21) | Creative-lab→ゲームContent Pack | G03,G04 |
 | P0 | [G06 #22](https://github.com/rioX432/rust-mobile-game-lab/issues/22) | 20体の物理レース/Headless順位 | G03 |
-| P0 | [G07 #23](https://github.com/rioX432/rust-mobile-game-lab/issues/23) | 最初のオフラインPlayable | G02,G03,G05,G06 |
+| P1 | [G16 #33](https://github.com/rioX432/rust-mobile-game-lab/issues/33) | 基準SEED1体の編集可能な完成アセット | G04,G05の最小Export契約（G03の選定を参照） |
+| P1 | [G17 #34](https://github.com/rioX432/rust-mobile-game-lab/issues/34) | 独自コース・障害物・背景の実制作 | G03,G05の最小契約,G06のCollider契約 |
+| P0 | [G07 #23](https://github.com/rioX432/rust-mobile-game-lab/issues/23) | 最初のオフラインPlayable | G02,G03,G05,G06,G16,G17 |
 | P1 | [G08 #24](https://github.com/rioX432/rust-mobile-game-lab/issues/24) | カメラ・配信者向けUI/名前/順位 | G07 |
-| P1 | [G09 #25](https://github.com/rioX432/rust-mobile-game-lab/issues/25) | SEEDのモーション、FX、効果音 | G07,G04 |
+| P1 | [G09 #25](https://github.com/rioX432/rust-mobile-game-lab/issues/25) | SEEDのモーション、FX、効果音 | G07,G04（G16のキャラ正本を使用） |
+| P1 | [G18 #35](https://github.com/rioX432/rust-mobile-game-lab/issues/35) | 実ゲーム動画からAI批評→局所修正→再実行を2サイクル | G07,G16,G17（G09の演出も比較対象） |
 | P1 | [G10 #26](https://github.com/rioX432/rust-mobile-game-lab/issues/26) | 権威的レースRoomサーバー | G06,G01 |
 | P1 | [G11 #27](https://github.com/rioX432/rust-mobile-game-lab/issues/27) | Android/iOS参加と再接続 | G07,G10,G02 |
 | P2 | [G12 #28](https://github.com/rioX432/rust-mobile-game-lab/issues/28) | server側Luaルール切替 | G10,G06 |
 | P2 | [G13 #29](https://github.com/rioX432/rust-mobile-game-lab/issues/29) | AAR/XCFrameworkを別appで取り込む | G07,G11 |
 | P1 | [G14 #30](https://github.com/rioX432/rust-mobile-game-lab/issues/30) | 実機/60fps目標/20・100体性能測定 | G07,G08,G09,G11,G13 |
-| P2 | [G15 #31](https://github.com/rioX432/rust-mobile-game-lab/issues/31) | 最終ゲーム品質・再利用設計・導入判断 | G07〜G14の必須証拠 |
+| P2 | [G15 #31](https://github.com/rioX432/rust-mobile-game-lab/issues/31) | 最終ゲーム品質・再利用設計・導入判断 | G07〜G14とG16〜G18の必須証拠 |
 
 ## 先に到達するマイルストーン
-**M1: G07のオフラインPlayable**。SEED1体と独自の1コースで、物理に基づく10〜20秒のレースをAndroid/iOSで実際に動かす。G10のRoomサーバー基盤の独立実装は先行できるが、G07の完了判定をネットワーク待ちにしない。
+**M1: G07のオフラインPlayable**。G16のSEED基準キャラ1体とG17の独自コース1つを取り込み、物理に基づく10〜20秒のレースをAndroid/iOSで実際に動かす。残り9体の制作やG18の反復改善をM1完了の前提にしない。G10のRoomサーバー基盤の独立実装は先行できるが、G07の完了判定をネットワーク待ちにしない。
 
 **M2: G11の視聴者参加**。Android/iOSからルームへ参加し同じ結果を受け取り、途中入退出/再接続を確認する。
 
-**M3: G15の作品品質とSDK検証**。アート/FX/音、Lua更新、Consumer SDK、実機測定を別ゲートとして合流する。
+**M3: G15の作品品質とSDK検証**。G16/G17の制作正本とG18の実ゲーム動画に基づく反復改善、G09のモーション/FX/音、Lua更新、Consumer SDK、実機測定を別ゲートとして合流する。
+
+## アセット制作Issueの責務（再計画2026-10-24）
+- G04 #20: 原画に忠実な**仕様/権利確認と2D・3D比較**。正式なキャラの量産ではない。
+- G05 #21: **制作→Content Pack→ゲーム読み込みの契約**。本番の芸術作品を代わりに量産するのではない。
+- G16 #33: **編集可能なSEED1体のアート制作**。G07で利用。残り9体は後続。
+- G17 #34: **独自コース1つ＋主要障害物/背景のアート制作**。G06物理とのCollider境界を連携。
+- G09 #25: 制作済み正本へ**動き・FX・音**を付ける。
+- G18 #35: G07以後の実際のゲームフレームで**2サイクル以上のAI批評/局所修正/比較**を行う。ユーザーの美術最終採用を自動で代行しない。
+- G07 #23はG16/G17の実アセットを取り込むが、G18を待たずにプレイアブルとして受け入れる。G15 #31はG18の比較結果を最終品質へ引き継ぐ。
 
 ## 旧Issueからの移管
 - [旧親 #1](https://github.com/rioX432/rust-mobile-game-lab/issues/1) は新Epic #16に置換。

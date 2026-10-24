@@ -23,7 +23,7 @@ Rust authoritative room server --> fixed-step physics + standings
                                      ^
                                      | bounded typed commands at round boundaries
                                      v
-Private persona-script-lab runtime -> game-specific server Lua adapter
+Private native-script-update-lab runtime -> game-specific server Lua adapter
 ```
 - ホストNativeはSurface/画面/権限/接続ライフサイクルを担当。ゲーム規則と結果はRust。
 - サーバーで物理stepを進めて順位を確定し、クライアントは補間して表示。GPU描画結果から順位を決めない。異なるOS/GPU間の浮動小数点ビット完全一致は要求しない。

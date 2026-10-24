@@ -1,5 +1,14 @@
 # AI作業ルール | SEED Race v1 (2026-10-24)
 
+## Code development routing (2026-10-24)
+
+New code development uses the authorized company portfolio checkout. This public
+repository preserves its baseline and original Issue/PR acceptance history.
+Production data, existing execution environments and runners switch only after
+separate validation. Do not dispatch new Issues through the legacy runner.
+The instructions below describe the preserved baseline; new code changes use
+the authorized portfolio entrypoint.
+
 ## 必読順と正本
 1. [PROJECT](docs/PROJECT.md): 何を作るか・非対象・マイルストーン
 2. [ARCHITECTURE](docs/ARCHITECTURE.md): 実装済みと設計案・依存の向き
@@ -13,7 +22,7 @@
 - 現在の目的は「SEED系オリジナルキャラクターで高品質な視聴者参加物理レース1本を完成し、Rustモバイル共通基盤を検証」。アバター描画、3択投票の2本目、汎用ゲームエディタは優先しない。
 - 既存2Dのネイティブ描画/オフラインレースはマージ済み基準線。壊さない。3D描画方式やRapier3DはG03の比較が終わるまで採用確定と書かない。
 - 勝敗と物理演算はRustサーバーを最終正本とする設計。Lua/Luauは **server-side、イベント境界、型付きCommand、ラウンドごとに版固定** の後続検証であり、毎フレームの物理演算をスクリプトへ渡さない。
-- Private `rioX432/creative-lab`・`rioX432/persona-script-lab` は外部の固定版利用候補。許諾のないソース・Avvy/AnotherBall素材・会社のレシピをPublic repoへ複製しない。
+- Private `rioX432/creative-lab`・`rioX432/native-script-update-lab` は外部の固定版利用候補。許諾のないソース・Avvy/AnotherBall素材・会社のレシピをPublic repoへ複製しない。
 - ユーザー提示のSEED画像はデザイン参照。Publicへの原画/派生素材の公開・配布権が確認されるまでダミー素材を使用し、権利と美術採用を別に扱う。
 - 未実測を成功とせず、コード/静的テスト、Emulator/Simulator、実機、アプリ/ネットワーク、実機性能を区別する。
 

@@ -1,5 +1,14 @@
 # Rust Mobile Game Lab | SEED Race
 
+## Code development routing (2026-10-24)
+
+New code development uses the authorized company portfolio checkout. This public
+repository preserves its baseline and original Issue/PR acceptance history.
+Production data, existing execution environments and runners switch only after
+separate validation. Do not dispatch new Issues through the legacy runner.
+The instructions below describe the preserved baseline; new code changes use
+the authorized portfolio entrypoint.
+
 **SEED系キャラクターを使った、高品質な視聴者参加型モバイル物理レースをつくる技術・制作PoC。** ゲーム自体を完成させることで、Rust共通Runtime、ネイティブ埋め込み、3D、オンライン参加、Luaルール、制作パイプラインの実用性を検証する。Avvyのアバターを使うことは必須ではない。
 
 > 現在地（2026-10-24）: [PR #14](https://github.com/rioX432/rust-mobile-game-lab/pull/14)、[PR #15](https://github.com/rioX432/rust-mobile-game-lab/pull/15) はmainへ統合済み。**既存の2D・3択オフラインレース**がAndroid Emulator/iOS Simulatorで一巡する。新しいSEED 3D物理ゲーム・通信・Lua・実機/性能は未実装または未受入。従来の3択レースは技術baselineであり完成ゲームではない。

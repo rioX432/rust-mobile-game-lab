@@ -22,6 +22,14 @@ SEED系の小さなオリジナルキャラが立体的なコースで滑る・�
 - G09が実ゲームの動き/FX/音を仕上げ、その後G18で**ゲーム内キャプチャの批評・局所修正・再描画・比較**を2サイクル以上行う。G18はG07より後で、G07の完成条件へ循環依存させない。
 - 参考として自動生成した画像を正本へ昇格させず、ユーザーの提示原画、制作候補、美術採用、権利/公開可否を別の状態に保つ。
 
+## 将来のHost組込み互換性（G19/G20）
+
+Standaloneゲームの完成を阻害せず、**Host-owned GPU/Rendererで同じゲームを描画できる設計**をPublic PoCで確かめる。2Dのゲーム描画APIを先行スパイクし、3D方式を確定するG03でもこの制約を評価する。製品への実連結はPrivate Consumerで行い、本repoでは会社コードを使わずdummy compositorを検証する。
+
+- G19 #37：同一Rustリンク単位の共有Device/Queue・Host-owned TextureView・単一Present契約とdummy合成。
+- G20 #38：Private Hostで実Avatar/RTC/ゲームが共存する検証（本RepoでProduction統合しない）。
+- 設計正本は[EMBEDDED_RENDERER](EMBEDDED_RENDERER.md)。Standalone SDK受入（G13）とGPU同居受入（G19/G20）は区別する。
+
 ## 当面やらないこと
 - Avvyの本番persona-*や配信バックエンドへの結合、アバター描画の移植
 - 汎用ゲーム制作ソフト/エディタ、2本目の「3択投票」制作の優先化、キャラ10体の一括3D化

@@ -1,17 +1,17 @@
-# Rust Mobile Game Lab
+# Rust Mobile Game Lab | SEED Race
 
-Android・iOSのネイティブ画面内へ、共通のRust 2D描画・ゲーム・通信基盤を埋め込む技術PoC。
-同じRustゲーム処理・描画器で、Android EmulatorとiOS Simulatorのオフラインレースを確認済み。開始→タッチ/ネイティブ入力→締切→結果→次ラウンド、開閉10回・復帰5回・再生成後入力が動く。今回の区切りはオフラインまで。通信・投票・SDK最終取り込み・実機・性能は未完了で、PoC全体は未完了。
+**SEED系キャラクターを使った、高品質な視聴者参加型モバイル物理レースをつくる技術・制作PoC。** ゲーム自体を完成させることで、Rust共通Runtime、ネイティブ埋め込み、3D、オンライン参加、Luaルール、制作パイプラインの実用性を検証する。Avvyのアバターを使うことは必須ではない。
 
-- [仕様全文](prompts/codex-poc.md)（公開は後続の依頼で承認済み）
-- [計画とIssue対応](docs/plan.md)
-- [受入条件](docs/acceptance.md)
-- [環境とPermissions](docs/environment.md)
-- [現在地と再開手順](docs/progress.md)
-- [オフラインレースの操作・実行証拠](docs/offline-native.md)
-- [初期の描画・寿命検証](docs/native-verification.md)
+> 現在地（2026-10-24）: [PR #14](https://github.com/rioX432/rust-mobile-game-lab/pull/14)、[PR #15](https://github.com/rioX432/rust-mobile-game-lab/pull/15) はmainへ統合済み。**既存の2D・3択オフラインレース**がAndroid Emulator/iOS Simulatorで一巡する。新しいSEED 3D物理ゲーム・通信・Lua・実機/性能は未実装または未受入。従来の3択レースは技術baselineであり完成ゲームではない。
 
-リポジトリルートで実行する。
+## 開発の入口
+- [作るものと非対象](docs/PROJECT.md) / [設計と既存実装](docs/ARCHITECTURE.md)
+- [SEEDの制作・権利と輸出](docs/ASSETS.md) / [ゲーム品質の基準](docs/QUALITY.md)
+- [開発順・現行Issue一覧](docs/plan.md) / [進捗・保留Worktree](docs/progress.md)
+- [AI向け作業ルール](AGENTS.md) / [受入の現状](docs/acceptance.md)
+- [親Epic #16](https://github.com/rioX432/rust-mobile-game-lab/issues/16)
+
+## 既存の2Dオフラインbaselineを動かす
 
 ```sh
 scripts/cargo.sh test --workspace --locked
@@ -21,9 +21,9 @@ scripts/android-build.sh
 scripts/ios-build.sh simulator
 ```
 
-[Android](docs/android.md)と[iOS](docs/ios.md)に必要なSDK・成果物・起動方法、[Desktop](docs/renderer.md)に操作方法を記録する。サーバー起動とSDK生成は後続実装。
+[Android起動](docs/android.md) / [iOS起動](docs/ios.md) / [現行2D Renderer](docs/renderer.md)。アプリではOpen → Race → Start / next → 3秒以内にレーン選択 → Result → 次ラウンド。これは単一アプリ内の固定Host/Viewerを使用しており、**別端末の視聴者参加ではない**。
 
-既存のpersona系リポジトリを変更せず、依存しない。
-初期段階は図形・タッチ・Surface再生成の縦断確認を両OSで行い、その後にゲーム、通信の順で接続する。
+オフラインbaselineの記録: [実操作と画像](docs/offline-native.md)、[初期Native検証](docs/native-verification.md)、[履歴上のレース規則](docs/race.md)、[FFI契約](docs/contracts.md)。
 
-モバイルアプリを起動し、Open → Race → Start / next → 3秒以内にレーンをタッチ（またはChoose）で結果まで進む。もう一度Start / nextで次ラウンド。オフラインでは同じインスタンス内のhost1/viewer2を使い、別端末間通信は行わない。Desktopは描画プローブ用シェル。
+## 公開/権利
+このrepoはPublic。SEEDの原画・派生素材・会社固有アセット・Private制作基盤のコードを、利用許諾確認なしにここへ追加しない。実験には権利問題のない合成仮素材を使う。共通制作基盤は別repoにあり、利用版・出典・判断を残す。

@@ -1,3 +1,5 @@
+> **履歴の実装記録 (2026-10-24以前)。** 旧2D/3択オフライン技術PoCの証拠。ここに書かれた未着手・「次の段階」・旧Issue依存は現行開発指示ではない。SEED Race v1の現行方針は[PROJECT](PROJECT.md)、[plan](plan.md)。実行当時の結果・ソース等は変更せず保持する。
+
 # レース実装の共有契約
 
 対象は[レース状態遷移 Issue #3](https://github.com/rioX432/rust-mobile-game-lab/issues/3)。この契約は次段階のAPIであり、ネイティブ描画プローブの動作を変更しない。

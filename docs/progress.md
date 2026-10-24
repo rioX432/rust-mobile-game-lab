@@ -1,75 +1,39 @@
-# 現在地（2026-10-24 JST）
+# 現在地 | SEED Race v1
+更新: 2026-10-24。情報源はmain、GitHub Issue、マージ済みPR、端末実行記録。未確認は未確認と書く。
 
-rioが今回の到達範囲を「両OSでオフラインレースを一巡させ、検証・修正・PR・マージ・記録まで」と選択した。オフライン範囲の実装・両OS実行・独立レビューを確認済み。成果の受入と統合状態は[PR #15](https://github.com/rioX432/rust-mobile-game-lab/pull/15)に記録する。PoC全体は未完了。
+## 何ができているか
+- main baseline: **5f665d667f8d04dc3310cc8d6320a8034ccbaeb2**（[PR #14](https://github.com/rioX432/rust-mobile-game-lab/pull/14)、[PR #15](https://github.com/rioX432/rust-mobile-game-lab/pull/15) 統合）。新計画のdocs-only PRは別。
+- Android API35 arm64 Emulator/iOS26.5 Simulatorで同じRust 2D描画+オフライン3択レース一巡。入力、結果、次ラウンド、画面開閉10回、Resultから背景復帰5回、Layer/Surface再生成の操作証拠は[offline-native](offline-native.md)。
+- Rust core16 + renderer4 + runtime16、Android host JUnit4、両OSビルド、関連CIはPR #15に記録。AndroidはDebug APK+Rust release、iOSはDebug app+Rust debug。**実機FPSや実物理ゲーム成功ではない**。
+- 完了旧Issue: #2〜#5。旧#6/#7の密度変更等はG02へ移管。
 
-## 作業ルートとPermissions
+## 新たな目標
+[PROJECT](PROJECT.md)に沿ったSEED1体・独自コース1つ・20体の立体物理レースを、G03比較→G06物理→G05素材→G07 playableへ進める。その後G10/G11で視聴者参加、G12でLua、G13/G14でSDKと実機評価。現在の新Issueは[#16〜#31](plan.md)。
 
-- https://github.com/rioX432/rust-mobile-game-lab （Public、rio承認済み）
-- `/Users/rio/workspace/src/AnotherBall/rust-mobile-game-lab`、成果ブランチ`feat/offline-race`、統合先`main`。
-- 実効設定は`workspace-write / on-request / auto_review`。rootはdeveloperの実効設定とpwd、独立WorktreeはCLIの`turn_context`で確認。CLI0.164.0の`--cd / --approve-for-me`を使用。`.codex/config.toml`への保存だけとは区別している。GUI表示は操作禁止のため未確認。
-- Git作者はrioX432に紐付くrepo-local設定を維持。保護ルールを回避せず、merge commitのみを使う。
-- 利用上限で止まった操作は未実行として保存し、rioの回復連絡後に正規の自動レビューで再開した。Full access/never等へ置換していない。
+## 先に確認が必要なローカル資産
+以前の作業報告にローカル作業として以下が記載されているが、**GitHubに該当ブランチが見えず、今回コードの実読・統合確認はしていない**。破棄・reset・stashしない。G01で作業者の実環境を検査して再利用/隔離/破棄方針を決める。
+| ローカル作業名 | 記録されたcommit | 状態 |
+| --- | --- | --- |
+| feat/room-server | 80f4875 | サーバー6テスト/loopback報告、現物要確認 |
+| feat/network-client | 1e736b1 | mock peer/再接続報告、現物要確認 |
+| feat/race-network | 4e209e0 | SDK生成・通信の実験、消費側実証不足 |
+| feat/offline-native-race | 72c6685 | オフライン統合の元。mainへ統合済み |
 
-## 確認済みのオフライン成果
+## 次の実行順
+1. G01で旧参照を外し新ドキュメントとIssue整理、ローカル資産の棚卸し。
+2. G02 Nativeの残検証、G03 3D方式比較、G04 SEEDデザイン・権利を並列で。
+3. G05アセット・G06物理の結果からG07オフラインPlayableを生成。
+4. 追加は[plan](plan.md)を参照。実装が始まったら各IssueとPR・実行証拠をこのページへ反映。
 
-- RustのRoomがseed・入力・締切・勝敗の正本。両OSは同じFFI経路でStart/Choose/Closeを送信し、同じScene/Rendererで描画する。
-- Rust core16 / renderer4 / runtime16テスト、format、strict Clippy成功。Android JUnit4件/lint/APK、iOS SDK26.5のSimulator実リンクビルド成功。
-- 両OSそれぞれ、Race画面開閉10回、背景復帰5回、Probe/Race往復で同じRoomの保持、Resize、iOS New layer後のタッチ入力が成功。
-- タッチのround1は両OSともseed42、順位[0,2,1]、人数[1,0,0]、勝者[2]。round2はnative Choose2、round3は再生成後タッチで結果まで進めた。
-- 各回の管理インスタンス/worker/NativeTargetは各1、停止中の描画提出増分0、最終last_error/last_action_errorはnull。実提示FPSやGPUメモリの測定ではない。
-- [操作・条件・画像・生記録](offline-native.md)。実画像を取得し目視確認した。Resultで背景復帰を検証しており、全phase総当たり・動的密度変更は未確認。
-
-## Issue・PR
-
-- 親: https://github.com/rioX432/rust-mobile-game-lab/issues/1 （PoC未完了、openを維持）
-- コアレース: https://github.com/rioX432/rust-mobile-game-lab/issues/3 （コア受入条件の検証成功。受入の証拠は今回PRとrace.md）
-- Android: https://github.com/rioX432/rust-mobile-game-lab/issues/6 、iOS: https://github.com/rioX432/rust-mobile-game-lab/issues/7 （オフライン埋め込み確認済み。密度変更/実機等の未確認は残す）
-- 初期ネイティブPR: https://github.com/rioX432/rust-mobile-game-lab/pull/14 （merge済み、505c469）
-- オフラインPR: https://github.com/rioX432/rust-mobile-game-lab/pull/15 。[Rust/Android/iOSのChecks](https://github.com/rioX432/rust-mobile-game-lab/pull/15/checks)で最新commitのCI結果を確認できる。Issue対応全件は[plan.md](plan.md)。
-
-## レビューと実行証拠
-
-- [初回FFI/Surface寿命レビュー](reviews/native-boundary.md): Metal取得待ち中のgate保持を修正し、遅延取得の故障注入テストと両OS再実行を確認済み。
-- [オフライン規則/遅延入力/両OS境界レビュー](reviews/offline-race.md): 限定範囲でP1/P2なし。rootはその後に実アプリ検証を実施。
-- repo固有clean-slop/create-prは存在しない。中央clean-slopを適用し、必要な安全契約コメントを保持した。PRはrepoテンプレートを使う。
-- コード基点35a7354のアプリで実行。以後は文言一致だけの補助テストの除外と記録のみ。完全なローカルログは`artifacts/offline-{rust-validation,android-build,ios-build}.log`と`offline-mobile-acceptance.json`、iOS stderr/stdout、`offline-android-runtime.log`。両OSの実行ログでSurface破棄→Native参照解放の順を確認した。
-
-## 保留した成果の保存先
-
-今回のPRへ通信・SDKの途中実装は含めない。ソース/未コミット変更を削除・reset・stashしていない。
-
-| ブランチ | 保存commit | 内容・未確認 |
-|---|---|---|
-| feat/race-network | 4e209e0 | 通信型e3daf2d、SDK生成/消費側・メモリ採取の実験。AAR消費側起動/タッチ、XCFramework生成と消費側ビルドまで。ゲーム/通信版SDKの最終確認とiOS消費側起動は未確認 |
-| feat/room-server | 80f4875 | サーバー限定6テストとloopback実通信をworkerが確認。親レビュー/共通client E2E/モバイルは未確認 |
-| feat/network-client | 1e736b1 | mock WebSocket peer/再接続等をworkerが検証。親レビュー/実サーバーE2E/wss実ハンドシェイク/モバイルは未確認 |
-| feat/offline-native-race | 72c6685 | オフラインworker原本。main基点へcherry-pickして今回統合 |
-
-各Worktreeとartifactsのタスク/結果を保持。SDK生成のXcode projectだけは`artifacts/deferred-sdk-generated/`へ移し、保留ブランチのソースと生成物は保持している。
-
-## 未完了と次回
-
-通信E2E/途中参加/再接続、投票、SDK最終取り込み、両OS実機、Release相当5分性能とサイズ差は未完了。動的密度変更、実Surface/Device Lost故障注入、モバイル初期化中の高速Closeも未確認。実機の対象指定は未確定で、利用していない。親Issueは閉じず、PoC完了としない。
-
-次に進める場合はこのファイルとnetwork-contract（保留ブランチ）を読み、保留ブランチの実状態とPermissionsを確認してからサーバー/共通clientの統合E2Eを行う。重複Issueを作らない。今回の区切りではそこへ進めない。
-
-再現はrepoルートで:
-
+## 検証再現
 ```sh
-gh pr checks 15 --repo rioX432/rust-mobile-game-lab
 scripts/cargo.sh test --workspace --locked
 scripts/cargo.sh run -p game-core --example offline_race --locked
+scripts/cargo.sh run -p game-desktop -- --smoke
 scripts/android-build.sh
 scripts/ios-build.sh simulator
 ```
+専用端末/権限の初回記録は[environment](environment.md)。2026-10-24に専用エミュレータを停止した記録があり、今回の文書更新で再起動・実機テストは実施していない。
 
-専用端末はAndroid `RustMobileGameLab_API35_20261024` / emulator-5630とiOS Simulator `06E9B566-FCC7-4A9B-9A0D-046B9A28D126`。既存の無関係な端末は変更しない。起動後Open → Race → Start / next → 3秒以内にタッチ/Choose → Result、再度Start / nextで次ラウンド。
-
-## 中断・再開とCPU負荷への対応
-
-rioの依頼で中断し、その後の再開依頼を受けてオフライン範囲の統合処理を再開した。中断時点のHEADは0723613c48d0f003998cd0bf35463afed0c01dc1。再開時、そのHEADに対するRust/Android/iOSのCIがすべて成功し、独立レビュー記録がPRへ添付済みであることを確認した。
-
-- CI: https://github.com/rioX432/rust-mobile-game-lab/actions/runs/40037118835 と https://github.com/rioX432/rust-mobile-game-lab/actions/runs/40037113631 。以後の変更はこの作業記録のみで、統合時にはPRの最新commitのChecksも確認する。
-- 中断後の調査で、このPoC専用Android Emulatorが約475%、専用iOSアプリが約18%のCPUを使用していた。専用Android AVDをemu kill、iOSアプリをterminateして専用Simulatorだけをshutdownし、両プロセスの終了とShutdown状態を確認した。ほかの作業のプロセスは停止していない。
-- 再開では端末・ローカルビルドを起動しない。今後UI再検証が必要な場合だけ専用端末を起動し、中断・終了時は描画アプリと専用端末も停止する。ソース/生成物/画像/ログ/保留Worktreeは保持。
-- 中断時の未コミット記録は取り込み前にartifacts/progress-paused-checkpoint.mdへ保存した。Issueは受入条件に基づいて更新し、未確認条件のあるものと親PoCは閉じない。統合状態はPR #15を正本とする。
+## 未確認・ブロッカー
+3D表現/物理、SEED原画の公開利用許諾、ゲーム制作・音声/FX、server実接続、Android/iOSの別端末参加、Lua adapter、SDK別app、物理実機性能・発熱、実GPU/Device Lost故障注入。ゲーム全体の完了とは宣言しない。

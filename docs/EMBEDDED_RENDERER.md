@@ -97,8 +97,8 @@ game.encode(
 
 ### wgpuバージョン／ビルド契約
 
-2026-10-24の調査時点ではStandalone PoCが `wgpu = 30.0.1`、
-連結候補のPrivate Avatar Hostは `wgpu = 29.0.4` を使っている。
+2026-10-24のStandalone PoCは `wgpu = 30.0.1` を使用する。
+統合先Private Hostとの実際のバージョン差異は非公開側で照合する。
 両方を直接リンクする際はCargoで単一の互換`wgpu`系統を使い、
 統合先で公開型の一致を静的に検証する。別バージョンのDeviceを無理に変換しない。
 PoC側のversion変更は3D方式選定やStandalone回帰の検証を伴って行う。

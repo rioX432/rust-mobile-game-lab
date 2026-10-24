@@ -7,6 +7,7 @@
 ## 開発の入口
 - [作るものと非対象](docs/PROJECT.md) / [設計と既存実装](docs/ARCHITECTURE.md)
 - [SEEDの制作・権利と輸出](docs/ASSETS.md) / [ゲーム品質の基準](docs/QUALITY.md) / [制作実務 G16](https://github.com/rioX432/rust-mobile-game-lab/issues/33)・[ステージ制作 G17](https://github.com/rioX432/rust-mobile-game-lab/issues/34)・[AI品質改善 G18](https://github.com/rioX432/rust-mobile-game-lab/issues/35)
+- [Host所有GPU・Embedded Renderer設計](docs/EMBEDDED_RENDERER.md) / [G19 共有GPU検証](https://github.com/rioX432/rust-mobile-game-lab/issues/37) / [G20 Private連結](https://github.com/rioX432/rust-mobile-game-lab/issues/38)
 - [開発順・現行Issue一覧](docs/plan.md) / [進捗・保留Worktree](docs/progress.md)
 - [AI向け作業ルール](AGENTS.md) / [受入の現状](docs/acceptance.md)
 - [親Epic #16](https://github.com/rioX432/rust-mobile-game-lab/issues/16)
@@ -24,6 +25,10 @@ scripts/ios-build.sh simulator
 [Android起動](docs/android.md) / [iOS起動](docs/ios.md) / [現行2D Renderer](docs/renderer.md)。アプリではOpen → Race → Start / next → 3秒以内にレーン選択 → Result → 次ラウンド。これは単一アプリ内の固定Host/Viewerを使用しており、**別端末の視聴者参加ではない**。
 
 オフラインbaselineの記録: [実操作と画像](docs/offline-native.md)、[初期Native検証](docs/native-verification.md)、[履歴上のレース規則](docs/race.md)、[FFI契約](docs/contracts.md)。
+
+## StandaloneとEmbeddedの連結方針
+
+Standalone（既存2D/開発用）はゲーム自身がGPU Surfaceとpresentを管理する。Embedded（2D APIスパイク追加）は別のRust Hostが所有するDevice/Queue/TextureViewを使い、ホスト側で合成・presentする。**実GPUでの合成、3Dへの適用、実配信Hostとの同居は未受入**。具体的な責任境界・テスト手順は[Embedded Renderer設計](docs/EMBEDDED_RENDERER.md)。
 
 ## 公開/権利
 このrepoはPublic。SEEDの原画・派生素材・会社固有アセット・Private制作基盤のコードを、利用許諾確認なしにここへ追加しない。実験には権利問題のない合成仮素材を使う。共通制作基盤は別repoにあり、利用版・出典・判断を残す。

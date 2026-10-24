@@ -8,3 +8,6 @@ rust-version.workspace = true
 game-core.workspace = true
 wgpu.workspace = true
 bytemuck.workspace = true
+
+[dev-dependencies]
+pollster.workspace = true

@@ -33,6 +33,15 @@ Private persona-script-lab runtime -> game-specific server Lua adapter
 - LuaはG12以降、サーバーがイベント+snapshotを与え、Scriptが型付きコマンドを返し、検証後に適用する。進行中のroundでは`script_version`とdigestを固定。不正更新は旧版維持。Private SDKソースをPublic repoへ貼り付けない。
 - `creative-lab`は制作/比較/出典保存を担当。ゲーム用のImporter/Content Pack/実再生QAはこのrepoが担当。`avvy-fx-factory`は企業専用の制作対象で、この個人PoCのruntime依存にしない。
 
+## Host-owned Embedded Renderer（2026-10-24追加）
+
+[契約書](EMBEDDED_RENDERER.md)でStandalone/Embedded/Private Consumerを分離する。現行2D rendererのStandalone Pathは残し、Embedded PathはHostが所有する `wgpu::Device`/`Queue` と `TextureView` へ描画をencodeする。GPU device、Surface、final submit/presentはHostの責務。2Dのコードスパイクは追加済みだが、同一画面への合成・3D・実アバター/RTCは**未受入**。
+
+- Public Game crates -> Host (同じRustリンク単位で型付きGPU共有) -> Render target -> Host compositor -> single present。
+- Android/iOSへの公開ABIはNative Host側が担当。独立した2つのSDKを跨いでwgpuの内部ハンドルを渡さない。
+- G03のRenderer選定はEmbed適性も比較し、G19 #37で公開dummy合成、G20 #38でPrivateの実Host結合を検証。G13はStandalone Consumerの受入として独立。
+- Stream RTC音声はゲームとは独立、入力/物理/snapshotはG10/G11のGame Room。ネット同期をRTC videoやAvatar Data Streamに混ぜない。
+
 ## 境界変更のレビュー
 変更する契約ごとに (1) 現行利用者 (2) 受入条件 (3) OS別ライフサイクル (4) サイズ/性能 (5) 互換性/rollback を明記。共有`Cargo.lock`・FFIヘッダー・Protocolは統合担当が所有。過剰な事前抽象化より、最初に1本のゲームが実際に動くことを優先する。
 

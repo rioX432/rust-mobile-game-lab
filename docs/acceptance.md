@@ -13,6 +13,8 @@
 | サーバーRoomと再接続・視聴者参加 | 未受入 | 未受入 | G10 #26,G11 #27 |
 | ラウンドごとのserver側Lua更新 | 未実装 | 未実装 | G12 #28 |
 | AAR/XCFrameworkを別アプリへ組込 | 未受入 | 未受入 | G13 #29 |
+| Host-owned Embedded 2D / 同一GPU疑似Avatar合成 | API追加、GPU実走未確認 | API追加、GPU実走未確認 | G19 #37、現状2Dコードスパイクで3D/合成未受入 |
+| Private配信HostでAvatar/RTC同居 | 未検証 | 未検証 | G20 #38。実証情報はPrivateに保存 |
 | Release相当の実機性能・発熱・サイズ | 未測定 | 未測定 | G14 #30 |
 | ゲーム作品の総合品質・再利用評価 | 未評価 | 未評価 | G15 #31 |
 

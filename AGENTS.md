@@ -2,9 +2,9 @@
 
 ## 必読順と正本
 1. [PROJECT](docs/PROJECT.md): 何を作るか・非対象・マイルストーン
-2. [ARCHITECTURE](docs/ARCHITECTURE.md): 実装済みと設計案・依存の向き
+2. [ARCHITECTURE](docs/ARCHITECTURE.md): 実装済みと設計案・依存の向き。GPU埋め込みを変更するときは[EMBEDDED_RENDERER](docs/EMBEDDED_RENDERER.md)も必読
 3. [ASSETS](docs/ASSETS.md) / [QUALITY](docs/QUALITY.md): 原画・権利・検証・美術基準
-4. [plan](docs/plan.md): SEED-G01〜G18の依存、旧Issue移管
+4. [plan](docs/plan.md): SEED-G01〜G20の依存、旧Issue移管
 5. [progress](docs/progress.md) と担当GitHub Issue: 作業状況・実行条件・受入基準
 
 **旧 `prompts/codex-poc.md`、`docs/issues/`、閉じた旧Issue #1,#6〜#13 は現行指示ではない。** 過去の実装履歴・証拠（docs/evidence, docs/reviews, offline-native.md）は保存するが、ここから次のタスクを自動発見しない。競合したら推測で実装せず担当Issueに記録する。
@@ -16,6 +16,8 @@
 - Private `rioX432/creative-lab`・`rioX432/persona-script-lab` は外部の固定版利用候補。許諾のないソース・Avvy/AnotherBall素材・会社のレシピをPublic repoへ複製しない。
 - ユーザー提示のSEED画像はデザイン参照。Publicへの原画/派生素材の公開・配布権が確認されるまでダミー素材を使用し、権利と美術採用を別に扱う。
 - 未実測を成功とせず、コード/静的テスト、Emulator/Simulator、実機、アプリ/ネットワーク、実機性能を区別する。
+- **Embedded contract:** StandaloneのGPU Surface/Device所有を既成事実にして新3D APIへ固定しない。共有GPUはHost-owned、同一Rustリンク単位、no-per-frame-readback。組込Rendererの画面生成・Present禁止、Color/alpha/Resize/Loss契約はdocs/EMBEDDED_RENDERER.mdが正本。
+- **Private境界:** Publicではdummy Host/合成fixtureだけを使い、Private Avatar RendererやRTCの実結合を成功と主張しない。会社固有コード、アセット、非公開URL、バージョンをPublicへ書かない。G19はPublic、G20はPrivate側の実証を分けて報告する。
 
 ## 担当Issueの実行プロトコル
 - 開始時に最新mainとPR/Issue、dirty worktree、担当ファイル、依存の受入を確認。旧`feat/room-server`等のローカル途中成果は所在確認前に破棄しない。

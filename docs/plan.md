@@ -5,7 +5,8 @@
 | --- | --- | --- | --- |
 | P0 | [G01 #17](https://github.com/rioX432/rust-mobile-game-lab/issues/17) | 旧計画と途中Worktreeの安全な移行 | - |
 | P0 | [G02 #18](https://github.com/rioX432/rust-mobile-game-lab/issues/18) | Android/iOSの旧Native未確認条件 | G01 |
-| P0 | [G03 #19](https://github.com/rioX432/rust-mobile-game-lab/issues/19) | 3D描画/物理方式の比較ADR | G01 |
+| P0 | [G03 #19](https://github.com/rioX432/rust-mobile-game-lab/issues/19) | 3D描画/物理方式の比較ADR（Host-owned GPU適性も評価） | G01 |
+| P0 | [G19 #37](https://github.com/rioX432/rust-mobile-game-lab/issues/37) | Host-owned GPU/Embedded描画・dummy合成API。2D先行 | G01、G03を参照 |
 | P0 | [G04 #20](https://github.com/rioX432/rust-mobile-game-lab/issues/20) | SEED参照・公開権利・2D/3D試作 | G01 |
 | P1 | [G05 #21](https://github.com/rioX432/rust-mobile-game-lab/issues/21) | Creative-lab→ゲームContent Pack | G03,G04 |
 | P0 | [G06 #22](https://github.com/rioX432/rust-mobile-game-lab/issues/22) | 20体の物理レース/Headless順位 | G03 |
@@ -18,7 +19,8 @@
 | P1 | [G10 #26](https://github.com/rioX432/rust-mobile-game-lab/issues/26) | 権威的レースRoomサーバー | G06,G01 |
 | P1 | [G11 #27](https://github.com/rioX432/rust-mobile-game-lab/issues/27) | Android/iOS参加と再接続 | G07,G10,G02 |
 | P2 | [G12 #28](https://github.com/rioX432/rust-mobile-game-lab/issues/28) | server側Luaルール切替 | G10,G06 |
-| P2 | [G13 #29](https://github.com/rioX432/rust-mobile-game-lab/issues/29) | AAR/XCFrameworkを別appで取り込む | G07,G11 |
+| P2 | [G13 #29](https://github.com/rioX432/rust-mobile-game-lab/issues/29) | Standalone AAR/XCFrameworkを別appで取り込む | G07,G11 |
+| P1 | [G20 #38](https://github.com/rioX432/rust-mobile-game-lab/issues/38) | Private配信HostでAvatar・RTCとゲームを同時実行 | G19,G11,G13 |
 | P1 | [G14 #30](https://github.com/rioX432/rust-mobile-game-lab/issues/30) | 実機/60fps目標/20・100体性能測定 | G07,G08,G09,G11,G13 |
 | P2 | [G15 #31](https://github.com/rioX432/rust-mobile-game-lab/issues/31) | 最終ゲーム品質・再利用設計・導入判断 | G07〜G14とG16〜G18の必須証拠 |
 
@@ -28,6 +30,8 @@
 **M2: G11の視聴者参加**。Android/iOSからルームへ参加し同じ結果を受け取り、途中入退出/再接続を確認する。
 
 **M3: G15の作品品質とSDK検証**。G16/G17の制作正本とG18の実ゲーム動画に基づく反復改善、G09のモーション/FX/音、Lua更新、Consumer SDK、実機測定を別ゲートとして合流する。
+
+**M4: 組み込み互換性（SEED Race本編の完成とは独立）**。G19でPublicのdummy Hostに共有GPU描画/合成、G20でPrivate ConsumerにAvatar/RTCとゲームを同居させる。G13 standalone SDK成功をEmbedded成功と混同しない。未受入でもG07/G15のゲーム制作ゲートを止めない。[設計](EMBEDDED_RENDERER.md)。
 
 ## アセット制作Issueの責務（再計画2026-10-24）
 - G04 #20: 原画に忠実な**仕様/権利確認と2D・3D比較**。正式なキャラの量産ではない。

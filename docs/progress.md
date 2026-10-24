@@ -64,3 +64,12 @@ scripts/ios-build.sh simulator
 ```
 
 専用端末はAndroid `RustMobileGameLab_API35_20261024` / emulator-5630とiOS Simulator `06E9B566-FCC7-4A9B-9A0D-046B9A28D126`。既存の無関係な端末は変更しない。起動後Open → Race → Start / next → 3秒以内にタッチ/Choose → Result、再度Start / nextで次ラウンド。
+
+## 中断・再開とCPU負荷への対応
+
+rioの依頼で中断し、その後の再開依頼を受けてオフライン範囲の統合処理を再開した。中断時点のHEADは0723613c48d0f003998cd0bf35463afed0c01dc1。再開時、そのHEADに対するRust/Android/iOSのCIがすべて成功し、独立レビュー記録がPRへ添付済みであることを確認した。
+
+- CI: https://github.com/rioX432/rust-mobile-game-lab/actions/runs/40037118835 と https://github.com/rioX432/rust-mobile-game-lab/actions/runs/40037113631 。以後の変更はこの作業記録のみで、統合時にはPRの最新commitのChecksも確認する。
+- 中断後の調査で、このPoC専用Android Emulatorが約475%、専用iOSアプリが約18%のCPUを使用していた。専用Android AVDをemu kill、iOSアプリをterminateして専用Simulatorだけをshutdownし、両プロセスの終了とShutdown状態を確認した。ほかの作業のプロセスは停止していない。
+- 再開では端末・ローカルビルドを起動しない。今後UI再検証が必要な場合だけ専用端末を起動し、中断・終了時は描画アプリと専用端末も停止する。ソース/生成物/画像/ログ/保留Worktreeは保持。
+- 中断時の未コミット記録は取り込み前にartifacts/progress-paused-checkpoint.mdへ保存した。Issueは受入条件に基づいて更新し、未確認条件のあるものと親PoCは閉じない。統合状態はPR #15を正本とする。

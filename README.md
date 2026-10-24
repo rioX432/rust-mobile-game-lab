@@ -6,7 +6,7 @@
 
 ## 開発の入口
 - [作るものと非対象](docs/PROJECT.md) / [設計と既存実装](docs/ARCHITECTURE.md)
-- [SEEDの制作・権利と輸出](docs/ASSETS.md) / [ゲーム品質の基準](docs/QUALITY.md)
+- [SEEDの制作・権利と輸出](docs/ASSETS.md) / [ゲーム品質の基準](docs/QUALITY.md) / [制作実務 G16](https://github.com/rioX432/rust-mobile-game-lab/issues/33)・[ステージ制作 G17](https://github.com/rioX432/rust-mobile-game-lab/issues/34)・[AI品質改善 G18](https://github.com/rioX432/rust-mobile-game-lab/issues/35)
 - [開発順・現行Issue一覧](docs/plan.md) / [進捗・保留Worktree](docs/progress.md)
 - [AI向け作業ルール](AGENTS.md) / [受入の現状](docs/acceptance.md)
 - [親Epic #16](https://github.com/rioX432/rust-mobile-game-lab/issues/16)

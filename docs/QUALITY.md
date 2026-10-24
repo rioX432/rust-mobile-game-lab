@@ -12,6 +12,8 @@
 | Q4 参加 | 20人想定のルーム・復帰・同一結果 | 実WebSocket複数クライアント、途中参加/古い入力拒否、合成20人と実機台数は別 |
 | Q5 Lua | v1→v2、ラウンド固定、エラー復帰 | server-sideで同一実行中に次ラウンドのみ効果変更、script digest/結果/拒否を記録 |
 | Q6 SDK | Android AAR / iOS XCFrameworkの別hostで起動 | 作成・配布形式・consumerビルド・画面とNativeライフサイクル |
+| Q6a Public Embedded | Host所有のGPUへgame rendererが2D/3Dを出力 | G19 #37でoffscreen合成、同一Device/Queue、色/alpha、single present、GPU実画像と独立監査。2D APIのみでは未受入 |
+| Q6b Private Host同居 | Avatar/RTCとゲームを同時実行 | G20 #38でNative実機、音声連続性/アバター/ゲーム入力、単一GPU、復帰/メモリ/サイズを非公開証拠で判定 |
 | Q7 実機/性能 | Release相当の実アプリ・実端末 | 端末/OS/GPU/解像度/ビルドを固定して20体と100体負荷を約5分測定 |
 | Q8 ゲーム品質 | 実際に遊んだ時の理解しやすさ/楽しさ | 操作テスト、カメラ/名前の視認性、映像/音の比較、人間の美術採否とGo/No-go |
 
@@ -20,6 +22,10 @@
 - 20個の通常レース、100個の負荷レース。数値が未測定の場合は `not_run` にし、予測値をPASSにしない。
 - レースは初期10〜20秒。ゲームルールによって適切な長さへ調整可能だが、固定fixtureに期待結果を残す。
 - 長い参加者名/レイアウト/背景復帰/Surface再生成/オフライン接続失敗/通信遅延など否定ケースも観測する。
+
+## 組込み品質と既存作品品質の独立
+
+G19/G20を追加の連結ゲートとして評価。Q6 (Standalone Consumer)を満たしてもQ6a/Q6bを満たしたことにはならない。逆にPrivate Consumer待ちをSEED RaceのPlayable製作のブロッカーにしない。
 
 ## 評価情報の分離
 1. **実装/ビルド:** コンパイルと型/静的検査。動作成功とは別。

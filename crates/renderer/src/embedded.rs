@@ -4,8 +4,8 @@
 //! independent native library / JNI / Swift binary boundaries.
 //! The host retains responsibility for the Surface, frame scheduling, final
 //! Queue submission and presentation. This renderer only encodes a render pass.
-use game_core::Scene;
 use super::{shape_pipeline, tessellate};
+use game_core::Scene;
 
 /// A host-owned GPU renderer for the existing 2D baseline.
 ///
@@ -119,9 +119,7 @@ mod tests {
     #[test]
     #[ignore = "requires compatible GPU adapter"]
     fn host_can_encode_a_game_frame_without_a_surface() {
-        let instance = wgpu::Instance::new(
-            wgpu::InstanceDescriptor::new_without_display_handle(),
-        );
+        let instance = wgpu::Instance::new(wgpu::InstanceDescriptor::new_without_display_handle());
         let adapter = pollster::block_on(instance.request_adapter(
             &wgpu::RequestAdapterOptions::default(),
         ))
@@ -164,9 +162,9 @@ mod tests {
                 color: [1.0, 0.5, 0.0, 0.7],
             }],
         };
-        let mut encoder = device.create_command_encoder(
-            &wgpu::CommandEncoderDescriptor { label: Some("host frame") },
-        );
+        let mut encoder = device.create_command_encoder(&wgpu::CommandEncoderDescriptor {
+            label: Some("host frame"),
+        });
         game.encode(
             &scene,
             &target.create_view(&wgpu::TextureViewDescriptor::default()),

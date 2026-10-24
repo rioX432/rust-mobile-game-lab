@@ -57,8 +57,22 @@ final class RuntimeSession {
     }
 
     func reset() {
+        action(0)
+    }
+
+    func selectMode(race: Bool) { action(1, argument: race ? 1 : 0) }
+    func startRound() { action(2) }
+    func closeRound() { action(4) }
+
+    func nativeChoose(_ option: UInt32) {
+        guard active, attachedLayer != nil, attachedLayer === desiredLayer,
+              attachedMetrics == desiredMetrics else { return }
+        action(3, argument: option)
+    }
+
+    private func action(_ action: UInt32, argument: UInt32 = 0) {
         guard !closing, handle != 0 else { return }
-        _ = accept(mg_action(handle, 0, 0), operation: "reset")
+        _ = accept(mg_action(handle, action, argument), operation: "action:\(action)")
         publishStatus()
     }
 
@@ -146,6 +160,7 @@ final class RuntimeSession {
         } else {
             status = "mg_status failed or invalid length: \(count)"
         }
-        onStatus?(generation, status + (lastError.map { "\nHost ABI error: \($0)" } ?? ""))
+        onStatus?(generation, RuntimeStatus.readable(status)
+                  + (lastError.map { "\nHost ABI error: \($0)" } ?? ""))
     }
 }

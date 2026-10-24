@@ -2,13 +2,13 @@
 
 ## 確認済み
 
-- macOS 26.7.1 / arm64。Rust 1.96.0 / Cargo 1.96.0（Homebrew）。rustupの既定はstable-aarch64-apple-darwin。使用する固定ツールチェーンは公式互換性確認後に選定する。
+- macOS 26.7.1 / arm64。Rust 1.96.0 / Cargo 1.96.0（Homebrew）。rustupの既定はstable-aarch64-apple-darwin。ビルド固定ツールチェーンはRust 1.99.0で、scripts/cargo.shがHomebrewより優先する。
 - 導入済みターゲット: aarch64-apple-darwin、aarch64-apple-ios、aarch64-apple-ios-sim、aarch64-linux-android、wasm32-unknown-unknown。
 - GitHub CLI 2.95.0。ネットワーク制限外でrioX432への認証・対象リポジトリADMIN権限を確認。認証情報は保存しない。
 - 作者はrioX432にGitHub上で紐付く既存コミットから確認し、リポジトリローカルに設定。ユーザー全体のGit設定は変更しない。
 - Java実行時はOpenJDK 21.0.11。java_homeが検出するJDKは17.0.19。Android Studio同梱JDKも存在する。ビルドではJAVA_HOMEを明示する。
-- Android SDK: API 31、33、34、35、36、36.1、37.0を導入済み。NDK 25.1、27.0、27.1、28.2、30.0を導入済み。使用版は互換性確認後に固定する。
-- Gradle、xcodegenを導入済み。Gradle版とAndroid Gradle Pluginの組み合わせは未選定。
+- Android SDK: API 31、33、34、35、36、36.1、37.0を導入済み。NDK 25.1、27.0、27.1、28.2、30.0を導入済み。使用版はSDK35 / NDK28.2.13676358に固定した。
+- Gradle、xcodegenを導入済み。Gradle8.11.1 / AGP8.9.2 / Kotlin2.2.10を使用し、JDK17でビルド成功。
 - Xcode 26.6 (17F113)、iOS Simulator SDK 26.5。Simulatorランタイムは18.6、26.5、27.0が存在。
 - サンドボックス外の読み取りで稼働中のiOS Simulator 1台、Android Emulator 3台を確認。既存の稼働端末を無断で変更せず、専用環境を選択・作成する。
 - Android実機は接続なし。iOS実機は1台がpaired/availableだが、今回の使用対象としての確認と利用は未実施。他者の端末情報を記録しない。
@@ -22,7 +22,7 @@
 - 再開後の実効セッション記録でcwdが専用リポジトリ、on-request/auto_review、workspace profileを確認。今回のdeveloper指示もworkspace-write/auto_reviewで、書込み範囲は専用フォルダ。設定保存と実効確認の両方を満たした。
 - CLIで確認したためGUIの表示確認は未確認。GUI操作は禁止されている。
 - CodexアプリのComputer Useは安全制約で禁止されており、GUI選択の確認は未確認。ユーザー全体の設定、信頼データ、セッション内部DBは変更していない。
-- 正式なCLI再開後、作業ルート・`/permissions`と`/status`・新しい実効セッション記録を確認する。信頼確認が出た場合は正規の画面で確認する。Worktreeでも同じ確認が必要。
+- 再開後の専用cwdと実効セッション記録を確認済み。独立レビューWorktreeもturn_contextのon-request/auto_review/workspace-writeを統合担当が直接確認した。
 - CLIの`--approve-for-me`はworkspace-writeを保った自動レビュー選択。Full accessやneverへ置換しない。
 
 公式資料を2026-10-24に確認:

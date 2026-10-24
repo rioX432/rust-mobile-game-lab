@@ -35,6 +35,10 @@ class ProbeSessionTest {
         }
         override fun touch(handle: Long, x: Float, y: Float): Int { events += "touch:$handle:$x:$y"; return 0 }
         override fun reset(handle: Long): Int { events += "reset:$handle"; return 0 }
+        override fun action(handle: Long, action: Int, argument: Int): Int {
+            events += "action:$handle:$action:$argument"
+            return 0
+        }
         override fun status(handle: Long): String { events += "status:$handle"; return "{\"live_instances\":${live.size}}" }
     }
 
@@ -53,6 +57,10 @@ class ProbeSessionTest {
                 surfaceDestroyed()
                 touch(1f, 1f)
                 reset()
+                selectMode(true)
+                startRound()
+                closeRound()
+                nativeChoose(1)
                 setPaused(false)
                 assertNull(status(generation))
                 close()
@@ -96,6 +104,30 @@ class ProbeSessionTest {
         assertEquals(5, runtime.events.count { it.startsWith("touch:") })
         assertEquals(5, runtime.events.count { it.startsWith("reset:") })
         assertEquals(5, runtime.events.count { it.startsWith("detach:") })
+    }
+
+    @Test fun offlineControlsUseExistingActionsAndIgnorePausedOrRetiredChoices() {
+        val runtime = RecordingRuntime()
+        val session = ProbeSession(runtime, 42L) {}
+        session.selectMode(true)
+        session.surfaceCreated()
+        session.surfaceChanged("first", 300, 400, 2f)
+        session.nativeChoose(0)
+        assertFalse(runtime.events.any { it == "action:1:3:0" })
+        session.setPaused(false)
+        session.startRound()
+        repeat(3) { session.nativeChoose(it) }
+        session.closeRound()
+        session.surfaceDestroyed()
+        session.nativeChoose(1)
+        session.surfaceCreated()
+        session.surfaceChanged("second", 600, 800, 2f)
+        session.selectMode(false)
+        assertEquals(1L, runtime.nextHandle)
+        assertEquals(listOf("action:1:1:1", "action:1:2:0", "action:1:3:0", "action:1:3:1",
+            "action:1:3:2", "action:1:4:0", "action:1:1:0"),
+            runtime.events.filter { it.startsWith("action:") })
+        session.close()
     }
 
     @Test fun teardownFailureCannotBeReportedAsSafeSurfaceRelease() {

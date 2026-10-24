@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+pub mod game;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ShapeKind {
     Rectangle,

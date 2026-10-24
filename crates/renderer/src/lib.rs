@@ -236,7 +236,6 @@ impl Renderer {
     }
 }
 
-
 /// A single pipeline definition shared by standalone and host-owned embedded rendering.
 /// Both entrypoints use the same 2D shader and blend behavior.
 fn shape_pipeline(device: &wgpu::Device, format: wgpu::TextureFormat) -> wgpu::RenderPipeline {

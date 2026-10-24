@@ -272,7 +272,7 @@ fn shape_pipeline(device: &wgpu::Device, format: wgpu::TextureFormat) -> wgpu::R
         }),
         multiview_mask: None,
         cache: None,
-})
+    })
 }
 
 fn tessellate(scene: &Scene) -> Result<Vec<Vertex>, String> {

@@ -69,10 +69,6 @@ impl Renderer {
         let lost = Arc::clone(&device_lost);
         device.set_device_lost_callback(move |_, _| lost.store(true, Ordering::Release));
         let validation = device.push_error_scope(wgpu::ErrorFilter::Validation);
-        let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
-            label: Some("2D shapes"),
-            source: wgpu::ShaderSource::Wgsl(include_str!("shapes.wgsl").into()),
-        });
         let pipeline = shape_pipeline(&device, config.format);
         if let Some(error) = validation.pop().await {
             return Err(format!("create shape pipeline: {error}"));
@@ -244,35 +240,39 @@ impl Renderer {
 /// A single pipeline definition shared by standalone and host-owned embedded rendering.
 /// Both entrypoints use the same 2D shader and blend behavior.
 fn shape_pipeline(device: &wgpu::Device, format: wgpu::TextureFormat) -> wgpu::RenderPipeline {
+    let shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
+        label: Some("2D shapes"),
+        source: wgpu::ShaderSource::Wgsl(include_str!("shapes.wgsl").into()),
+    });
     device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
-            label: Some("2D shapes"),
-            layout: None,
-            vertex: wgpu::VertexState {
-                module: &shader,
-                entry_point: Some("vs_main"),
-                compilation_options: Default::default(),
-                buffers: &[Some(wgpu::VertexBufferLayout {
-                    array_stride: size_of::<Vertex>() as u64,
-                    step_mode: wgpu::VertexStepMode::Vertex,
-                    attributes: &wgpu::vertex_attr_array![0 => Float32x2, 1 => Float32x4],
-                })],
-            },
-            primitive: Default::default(),
-            depth_stencil: None,
-            multisample: Default::default(),
-            fragment: Some(wgpu::FragmentState {
-                module: &shader,
-                entry_point: Some("fs_main"),
-                compilation_options: Default::default(),
-                targets: &[Some(wgpu::ColorTargetState {
-                    format,
-                    blend: Some(wgpu::BlendState::ALPHA_BLENDING),
-                    write_mask: wgpu::ColorWrites::ALL,
-                })],
-            }),
-            multiview_mask: None,
-            cache: None,
-    })
+        label: Some("2D shapes"),
+        layout: None,
+        vertex: wgpu::VertexState {
+            module: &shader,
+            entry_point: Some("vs_main"),
+            compilation_options: Default::default(),
+            buffers: &[Some(wgpu::VertexBufferLayout {
+                array_stride: size_of::<Vertex>() as u64,
+                step_mode: wgpu::VertexStepMode::Vertex,
+                attributes: &wgpu::vertex_attr_array![0 => Float32x2, 1 => Float32x4],
+            })],
+        },
+        primitive: Default::default(),
+        depth_stencil: None,
+        multisample: Default::default(),
+        fragment: Some(wgpu::FragmentState {
+            module: &shader,
+            entry_point: Some("fs_main"),
+            compilation_options: Default::default(),
+            targets: &[Some(wgpu::ColorTargetState {
+                format,
+                blend: Some(wgpu::BlendState::ALPHA_BLENDING),
+                write_mask: wgpu::ColorWrites::ALL,
+            })],
+        }),
+        multiview_mask: None,
+        cache: None,
+})
 }
 
 fn tessellate(scene: &Scene) -> Result<Vec<Vertex>, String> {
